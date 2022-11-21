@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+$id = $_GET['album_id'];
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://api.deezer.com/album/' . $id);
+$album = curl_exec($ch);
+curl_close($ch);
 
-<body>
-
-</body>
-
-</html>
+echo $album;

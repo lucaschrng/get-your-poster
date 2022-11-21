@@ -19,8 +19,7 @@ function search(keyword) {
         let offset = 0;
 
         removeResults();
-        while (albumIndex < 10) {
-            console.log('hey');
+        while (albumIndex < 50) {
             if (albumIndex + offset < albums.length) {
                 if (albums[albumIndex + offset].record_type === "album") {
                     addResult(albums[albumIndex + offset]);
@@ -29,11 +28,11 @@ function search(keyword) {
                     if (albumIndex + offset < albums.length) {
                         offset++;
                     } else {
-                        albumIndex = 10;
+                        albumIndex = 50;
                     }
                 }
             } else {
-                albumIndex = 10;
+                albumIndex = 50;
             }
         }
 
@@ -46,7 +45,7 @@ function search(keyword) {
 
 function addResult(album) {
     let card = document.createElement('a');
-    card.href = '/generate.php?album_id=' + album.id;
+    card.href = '/poster.php?album_id=' + album.id;
 
     let cover = document.createElement('img');
     cover.src = album.cover_big;
