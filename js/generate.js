@@ -46,7 +46,7 @@ function buildPoster(album) {
     cover.src = album.cover_xl;
 
     let tracklist = document.createElement('ul');
-    tracklist.style.gridTemplateRows = "repeat(" + Math.floor(album.tracks.data.length / 2) + ", 1fr)";
+    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.data.length / 2) + ", 1fr)";
 
     album.tracks.data.forEach((track, index) => {
         let song = document.createElement('li');
@@ -68,4 +68,12 @@ function buildPoster(album) {
     poster.appendChild(infos);
     poster.appendChild(cover);
     poster.appendChild(tracklist);
+
+    // Use `Vibrant` in script
+    // Vibrant is exported to global. window.Vibrant === Vibrant
+    Vibrant.from(cover).getPalette(function(err, palette) {});
+    // Promise
+    Vibrant.from(cover).getPalette().then(function(palette) {
+        document.documentElement.style.setProperty('--accent-color', 'rgb(' + palette.Vibrant._rgb[0] + ', ' + palette.Vibrant._rgb[1] + ', ' + palette.Vibrant._rgb[2] + ')');
+    });
 }
