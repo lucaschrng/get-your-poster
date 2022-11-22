@@ -2,6 +2,8 @@ let separatorText = '...........................................................
 
 let album_id = document.querySelector('.album_id').value;
 let poster = document.querySelector('.poster');
+let downloadBtn = document.querySelector('.poster-img a');
+let preview = document.querySelector('.preview');
 
 axios.get('/generate.php?album_id=' + album_id)
 
@@ -9,8 +11,6 @@ axios.get('/generate.php?album_id=' + album_id)
     // en cas de réussite de la requête
     let album = response.data.slice(0, -1);
     album = JSON.parse(album);
-
-    console.log(album);
 
     buildPoster(album);
     })
@@ -145,7 +145,6 @@ function buildPoster(album) {
         .then(color => {
             document.documentElement.style.setProperty('--accent-color', color.rgba);
             let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
-            console.log(luminance);
             if (luminance[2] > 0.80 || luminance[1] < 0.25) {
                 loadVibrant();
             }
@@ -154,19 +153,23 @@ function buildPoster(album) {
             console.log(e);
         });
 
-    // setTimeout(() => {
-    //     html2canvas(document.querySelector(".poster"), {
-    //         allowTaint: true, useCORS: true
-    //     }).then(function (canvas) {
-    //         var anchorTag = document.createElement("a");
-    //         document.body.appendChild(anchorTag);
-    //         document.querySelector(".poster-img").appendChild(canvas);
-    //         // anchorTag.download = "filename.jpg";
-    //         // anchorTag.href = canvas.toDataURL();
-    //         // anchorTag.target = '_blank';
-    //         // anchorTag.click();
-    //     });
-    // }, 2000);
+        cover.addEventListener('load', () => {
+            setTimeout(() => {
+                html2canvas(document.querySelector(".poster"), {
+                    allowTaint: true, useCORS: true
+                    }).then(function (canvas) {
+                        let anchorTag = document.createElement("a");
+                        document.body.appendChild(anchorTag);
+                        preview.src = canvas.toDataURL();
+                        downloadBtn.href = canvas.toDataURL();
+                        downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster.png';
+                        // anchorTag.download = "filename.jpg";
+                        // anchorTag.href = canvas.toDataURL();
+                        // anchorTag.target = '_blank';
+                        // anchorTag.click();
+                    })
+            }, 2000);
+        })
 }
 
 function rgbToHsl(r, g, b) {

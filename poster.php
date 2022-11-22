@@ -20,7 +20,7 @@
 <body>
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
     <div class="poster"></div>
-    <div class="poster-img"></div>
+    <div class="poster-img"><img class="preview" src="" alt=""><a href="">Download</a></div>
 </body>
 
 </html>

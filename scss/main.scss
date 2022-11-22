@@ -5,6 +5,10 @@
     font-family: 'Inter', sans-serif;
 }
 
+body {
+    margin-top: -1728px;
+}
+
 .poster {
     position: relative;
     padding: 100px;
@@ -72,5 +76,11 @@
         background-image: url('../src/img/photocopy_texture.jpg');
         mix-blend-mode: screen;
         opacity: 0.1;
+    }
+}
+
+.poster-img {
+    img {
+        height: 500px;
     }
 }
