@@ -5,18 +5,13 @@ let poster = document.querySelector('.poster');
 let downloadBtn = document.querySelector('.poster-img a');
 let preview = document.querySelector('.preview');
 
-axios.get('/api/album.php?album_id=' + album_id)
+axios.get('/api/album?album_id=' + album_id)
 
     .then(function (response) {
-    // en cas de réussite de la requête
     let album = response.data.slice(0, -1);
     album = JSON.parse(album);
 
     buildPoster(album);
-    })
-
-    .then(function () {
-    // dans tous les cas
     })
 
 function buildPoster(album) {
@@ -35,8 +30,6 @@ function buildPoster(album) {
         title.appendChild(wordNode);
     })
 
-    // title.innerHTML = album.title;
-
     if (album.title.length > 13) {
         title.style.fontSize = '80px';
         title.style.lineHeight = '80px';
@@ -48,17 +41,6 @@ function buildPoster(album) {
 
     infos.appendChild(artist);
     infos.appendChild(title);
-    
-    // let titleWords = "My beautiful dark twisted fantasy".split(" ");
-    // console.log(titleWords);
-
-    // for (let i = 0; i < album.title.length; i++) {
-    //     if (letter != " ") {
-    //         let letterSpan = document.createElement('span');
-    //         letterSpan.innerHTML = album.title[i];
-    //     }
-    // }
-    // title.innerHTML = album.title;
 
     let cover = document.createElement('img');
     cover.src = album.cover_xl;
@@ -130,73 +112,30 @@ function buildPoster(album) {
     poster.appendChild(cover);
     poster.appendChild(tracklist);
 
+    Vibrant.from(cover).getPalette(function(err, palette) {});
+    Vibrant.from(cover).getPalette().then(function(palette) {
+        let vibrantColor = palette.Vibrant._rgb;
+        document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
+    });
 
-    function loadVibrant() {
-        Vibrant.from(cover).getPalette(function(err, palette) {});
-        Vibrant.from(cover).getPalette().then(function(palette) {
-            let vibrantColor = palette.Vibrant._rgb;
-            document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
-        });
-    }
-
-    const fac = new FastAverageColor();
-    loadVibrant();
-
-    // fac.getColorAsync(album.cover_small)
-    //     .then(color => {
-    //         document.documentElement.style.setProperty('--accent-color', color.rgba);
-    //         let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
-    //         if (luminance[2] > 0.80 || luminance[1] < 0.25) {
-    //             loadVibrant();
-    //         }
-    //     })
-    //     .catch(e => {
-    //         console.log(e);
-    //     });
-
-        cover.addEventListener('load', () => {
-            setTimeout(() => {
-                html2canvas(document.querySelector(".poster"), {
-                    allowTaint: true, useCORS: true
-                    }).then(function (canvas) {
-                        let anchorTag = document.createElement("a");
-                        document.body.appendChild(anchorTag);
-                        preview.src = canvas.toDataURL();
-                        downloadBtn.href = canvas.toDataURL();
-                        downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster.png';
-                        downloadBtn.style.zIndex = 1;
-                        downloadBtn.style.color = '#ffffff';
-                        // anchorTag.download = "filename.jpg";
-                        // anchorTag.href = canvas.toDataURL();
-                        // anchorTag.target = '_blank';
-                        // anchorTag.click();
-                    })
-            }, 2000);
-        })
-}
-
-function rgbToHsl(r, g, b) {
-    r /= 255, g /= 255, b /= 255;
-
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, l = (max + min) / 2;
-
-    if (max == min) {
-      h = s = 0; // achromatic
-    } else {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-        switch (max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-
-        h /= 6;
-    }
-
-    return [ h, s, l ];
+    cover.addEventListener('load', () => {
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            html2canvas(document.querySelector(".poster"), {
+                allowTaint: true, 
+                useCORS: true,
+                scale: Math.min(window.devicePixelRatio, 2)
+            }).then(function (canvas) {
+                let anchorTag = document.createElement("a");
+                document.body.appendChild(anchorTag);
+                preview.src = canvas.toDataURL("image/png", 1.0);
+                downloadBtn.href = canvas.toDataURL("image/png", 1.0);
+                downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster';
+                downloadBtn.style.zIndex = 1;
+                downloadBtn.style.color = '#ffffff';
+            })
+        }, 2000);
+    })
 }
 
 function removeMention(string, mention) {

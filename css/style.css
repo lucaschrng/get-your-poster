@@ -129,6 +129,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  mix-blend-mode: multiply;
 }
 .poster h2 {
   font-size: 48px;
@@ -171,7 +172,7 @@
   text-overflow: ellipsis;
   width: 100%;
 }
-.poster::after {
+.poster:after {
   content: "";
   position: absolute;
   top: 0;
