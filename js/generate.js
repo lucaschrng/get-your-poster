@@ -26,11 +26,22 @@ function buildPoster(album) {
     artist.innerHTML = album.artist.name;
 
     let title = document.createElement('h1');
-    title.innerHTML = album.title;
+    titleWords = album.title.split(' ');
+    titleWords.forEach(word => {
+        let wordNode = document.createElement('span');
+        wordNode.innerHTML = word;
+        title.appendChild(wordNode);
+    })
+
+    // title.innerHTML = album.title;
 
     if (album.title.length > 13) {
         title.style.fontSize = '80px';
         title.style.lineHeight = '80px';
+    }
+    if (titleWords.length > 6) {
+        title.style.fontSize = '72px';
+        title.style.lineHeight = '64px';
     }
 
     infos.appendChild(artist);
@@ -77,19 +88,39 @@ function buildPoster(album) {
 
     console.log(songTitleMaxLength);
 
-    if (songTitleMaxLength > 37) {
+    if (songTitleMaxLength > 28 || album.tracks.data.length > 18) {
+        tracklist.childNodes.forEach(li => {
+            li.style.fontSize = '24px';
+        })
+    }
+    if (songTitleMaxLength > 30) {
         tracklist.childNodes.forEach(li => {
             li.style.fontSize = '22px';
         })
     }
-    if (songTitleMaxLength > 40) {
+    if (songTitleMaxLength > 34) {
         tracklist.childNodes.forEach(li => {
             li.style.fontSize = '20px';
         })
     }
-    if (songTitleMaxLength > 60) {
+    if (songTitleMaxLength > 37) {
+        tracklist.childNodes.forEach(li => {
+            li.style.fontSize = '18px';
+        })
+    }
+    if (songTitleMaxLength > 42) {
+        tracklist.childNodes.forEach(li => {
+            li.style.fontSize = '16px';
+        })
+    }
+    if (songTitleMaxLength > 48) {
         tracklist.childNodes.forEach(li => {
             li.style.fontSize = '12px';
+        })
+    }
+    if (songTitleMaxLength > 64) {
+        tracklist.childNodes.forEach(li => {
+            li.style.fontSize = '11px';
         })
     }
 
@@ -115,6 +146,19 @@ function buildPoster(album) {
     //     console.log(colorAvg);
     //     // document.documentElement.style.setProperty('--accent-color', 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')');
     // })
+
+    // const fac = new FastAverageColor();
+
+    // fac.getColorAsync('./image.jpg')
+    //     .then(color => {
+    //         container.style.backgroundColor = color.rgba;
+    //         container.style.color = color.isDark ? '#fff' : '#000';
+
+    //         console.log('Average color', color);
+    //     })
+    //     .catch(e => {
+    //         console.log(e);
+    //     });
 
     // setTimeout(() => {
     //     html2canvas(document.querySelector(".poster"), {

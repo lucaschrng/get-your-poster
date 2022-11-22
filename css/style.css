@@ -19,11 +19,16 @@
   color: var(--accent-color);
 }
 .poster h1 {
+  width: 100%;
   font-size: 120px;
   line-height: 120px;
   text-transform: uppercase;
   text-align: justify;
   color: var(--accent-color);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 25px;
 }
 .poster img {
   z-index: 2;
@@ -39,7 +44,7 @@
   color: var(--accent-color);
 }
 .poster ul li {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   display: grid;
   grid-template-columns: min-content 1fr min-content;
