@@ -19,8 +19,7 @@
 
 <body class="poster-generate">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
-    <div class="poster">
-    </div>
+    <div class="poster"></div>
 
     <div class="poster-img">
         <div class="poster-preview">

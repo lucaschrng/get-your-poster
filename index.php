@@ -12,9 +12,7 @@
 </head>
 
 <body class="home">
-    <form>
-        <input class="search-input" type="text" name="album" placeholder="Search for an album">
-    </form>
+    <input class="search-input" type="text" name="album" placeholder="Search for an album">
     <div class="results"></div>
 </body>
 
