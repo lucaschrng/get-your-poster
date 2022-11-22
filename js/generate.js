@@ -129,36 +129,31 @@ function buildPoster(album) {
     poster.appendChild(tracklist);
 
 
-    Vibrant.from(cover).getPalette(function(err, palette) {});
-    Vibrant.from(cover).getPalette().then(function(palette) {
-        let vibrantColor = palette.Vibrant._rgb;
-        let vibrantAvg = (vibrantColor[0] + vibrantColor[1] + vibrantColor[2]) / 3;
-        console.log(vibrantAvg);
-        document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
-    });
+    function loadVibrant() {
+        Vibrant.from(cover).getPalette(function(err, palette) {});
+        Vibrant.from(cover).getPalette().then(function(palette) {
+            let vibrantColor = palette.Vibrant._rgb;
+            let vibrantAvg = (vibrantColor[0] + vibrantColor[1] + vibrantColor[2]) / 3;
+            console.log(vibrantAvg);
+            document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
+        });
+    }
 
-    // const colorThief = new ColorThief();
-    // cover.crossOrigin = "Anonymous";
+    const fac = new FastAverageColor();
 
-    // cover.addEventListener('load', () => {
-    //     let color = colorThief.getColor(cover);
-    //     let colorAvg = (color[0] + color[1] + color[2]) / 3;
-    //     console.log(colorAvg);
-    //     // document.documentElement.style.setProperty('--accent-color', 'rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ')');
-    // })
-
-    // const fac = new FastAverageColor();
-
-    // fac.getColorAsync('./image.jpg')
-    //     .then(color => {
-    //         container.style.backgroundColor = color.rgba;
-    //         container.style.color = color.isDark ? '#fff' : '#000';
-
-    //         console.log('Average color', color);
-    //     })
-    //     .catch(e => {
-    //         console.log(e);
-    //     });
+    fac.getColorAsync(album.cover_small)
+        .then(color => {
+            document.documentElement.style.setProperty('--accent-color', color.rgba);
+            console.log(color.hsl);
+            let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
+            console.log(luminance);
+            if (luminance[2] > 0.85 || luminance[1] < 0.25) {
+                loadVibrant();
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        });
 
     // setTimeout(() => {
     //     html2canvas(document.querySelector(".poster"), {
@@ -173,4 +168,28 @@ function buildPoster(album) {
     //         // anchorTag.click();
     //     });
     // }, 2000);
+}
+
+function rgbToHsl(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if (max == min) {
+      h = s = 0; // achromatic
+    } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
+    }
+
+    return [ h, s, l ];
 }
