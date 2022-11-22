@@ -163,6 +163,8 @@ function buildPoster(album) {
                         preview.src = canvas.toDataURL();
                         downloadBtn.href = canvas.toDataURL();
                         downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster.png';
+                        downloadBtn.style.zIndex = 1;
+                        downloadBtn.style.color = '#ffffff';
                         // anchorTag.download = "filename.jpg";
                         // anchorTag.href = canvas.toDataURL();
                         // anchorTag.target = '_blank';
