@@ -26,7 +26,9 @@ function buildPoster(album) {
     artist.innerHTML = album.artist.name;
 
     let title = document.createElement('h1');
-    titleWords = album.title.split(' ');
+    let titleContent = removeMention(album.title, 'remaster');    
+
+    titleWords = titleContent.split(' ');
     titleWords.forEach(word => {
         let wordNode = document.createElement('span');
         wordNode.innerHTML = word;
@@ -67,8 +69,10 @@ function buildPoster(album) {
     let songTitleMaxLength = 0;
 
     album.tracks.data.forEach((track, index) => {
-        if (track.title.length > songTitleMaxLength) {
-            songTitleMaxLength = track.title.length;
+        let trackTitle = removeMention(track.title, 'remaster');
+        trackTitle = removeMention(trackTitle, 'album version');
+        if (trackTitle.length > songTitleMaxLength) {
+            songTitleMaxLength = trackTitle.length;
         }
         let song = document.createElement('li');
         let trackNumber = document.createElement('span');
@@ -77,7 +81,7 @@ function buildPoster(album) {
         separator.innerHTML = separatorText;
         separator.classList.add('separator');
         let songTitle =document.createElement('span');
-        songTitle.innerHTML = track.title;
+        songTitle.innerHTML = trackTitle;
 
         song.appendChild(trackNumber);
         song.appendChild(separator);
@@ -85,8 +89,6 @@ function buildPoster(album) {
         
         tracklist.appendChild(song);
     });
-
-    console.log(songTitleMaxLength);
 
     if (songTitleMaxLength > 28 || album.tracks.data.length > 18) {
         tracklist.childNodes.forEach(li => {
@@ -133,8 +135,6 @@ function buildPoster(album) {
         Vibrant.from(cover).getPalette(function(err, palette) {});
         Vibrant.from(cover).getPalette().then(function(palette) {
             let vibrantColor = palette.Vibrant._rgb;
-            let vibrantAvg = (vibrantColor[0] + vibrantColor[1] + vibrantColor[2]) / 3;
-            console.log(vibrantAvg);
             document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
         });
     }
@@ -144,10 +144,9 @@ function buildPoster(album) {
     fac.getColorAsync(album.cover_small)
         .then(color => {
             document.documentElement.style.setProperty('--accent-color', color.rgba);
-            console.log(color.hsl);
             let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
             console.log(luminance);
-            if (luminance[2] > 0.85 || luminance[1] < 0.25) {
+            if (luminance[2] > 0.80 || luminance[1] < 0.25) {
                 loadVibrant();
             }
         })
@@ -192,4 +191,32 @@ function rgbToHsl(r, g, b) {
     }
 
     return [ h, s, l ];
+}
+
+function removeMention(string, mention) {
+    let content = '';
+    let bracketsContent = '';
+    let inBrackets = false;
+    
+    if (string.toLowerCase().includes(mention)) {
+        for (let i = 0; i < string.length; i++) {
+    
+            if (string[i] == '(') {
+                inBrackets = true;
+                content = content.slice(0, -1);
+            } else if (string[i] == ')') {
+                inBrackets = false;
+                if (!bracketsContent.toLowerCase().includes(mention)) {
+                    content += " (" + bracketsContent + ")";
+                }
+            } else if (!inBrackets) {
+                content += string[i];
+            } else {
+                bracketsContent += string[i];
+            }
+        }
+    } else {
+        content = string;
+    }
+    return content;   
 }
