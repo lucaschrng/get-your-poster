@@ -9,7 +9,7 @@ input.addEventListener('keyup', () => {
 })
 
 function search(keywords) {
-    axios.get('/api/search.php?keyword=' + keywords)
+    axios.get('https://api.deezer.com/search/album?q=' + keywords)
 
         .then(function (response) {
         // en cas de réussite de la requête
