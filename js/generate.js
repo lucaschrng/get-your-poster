@@ -140,18 +140,19 @@ function buildPoster(album) {
     }
 
     const fac = new FastAverageColor();
+    loadVibrant();
 
-    fac.getColorAsync(album.cover_small)
-        .then(color => {
-            document.documentElement.style.setProperty('--accent-color', color.rgba);
-            let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
-            if (luminance[2] > 0.80 || luminance[1] < 0.25) {
-                loadVibrant();
-            }
-        })
-        .catch(e => {
-            console.log(e);
-        });
+    // fac.getColorAsync(album.cover_small)
+    //     .then(color => {
+    //         document.documentElement.style.setProperty('--accent-color', color.rgba);
+    //         let luminance = rgbToHsl(color.value[0], color.value[1], color.value[2]);
+    //         if (luminance[2] > 0.80 || luminance[1] < 0.25) {
+    //             loadVibrant();
+    //         }
+    //     })
+    //     .catch(e => {
+    //         console.log(e);
+    //     });
 
         cover.addEventListener('load', () => {
             setTimeout(() => {

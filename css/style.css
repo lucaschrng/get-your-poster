@@ -25,7 +25,7 @@
 .home .results {
   max-width: 1000px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
   margin-top: 2rem;
   padding: 2rem;
@@ -49,6 +49,8 @@
 }
 .home .results a * h2 {
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .home .results a h3 {
   font-weight: 500;
