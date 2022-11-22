@@ -5,7 +5,7 @@ let poster = document.querySelector('.poster');
 let downloadBtn = document.querySelector('.poster-img a');
 let preview = document.querySelector('.preview');
 
-axios.get('/generate.php?album_id=' + album_id)
+axios.get('./api/generate.php?album_id=' + album_id)
 
     .then(function (response) {
     // en cas de réussite de la requête
