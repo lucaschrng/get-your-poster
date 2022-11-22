@@ -24,7 +24,10 @@
     <div class="poster-img">
         <div class="poster-preview">
             <p>Preview</p>
-            <img class="preview" src="" alt="">
+            <div class="preview-wrapper">
+                <img class="preview" src="" alt="">
+                <img class="loader" src="./src/img/loading.gif" alt="">
+            </div>
         </div>
         <a class="download" href="">Download</a>
         <a class="new-poster" href="./">Make another poster →</a>

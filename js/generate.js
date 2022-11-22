@@ -4,6 +4,7 @@ let album_id = document.querySelector('.album_id').value;
 let poster = document.querySelector('.poster');
 let downloadBtn = document.querySelector('.poster-img a');
 let preview = document.querySelector('.preview');
+let loader = document.querySelector('.loader');
 
 axios.get('/api/album?album_id=' + album_id)
 
@@ -128,6 +129,7 @@ function buildPoster(album) {
             }).then(function (canvas) {
                 let anchorTag = document.createElement("a");
                 document.body.appendChild(anchorTag);
+                loader.style.display = 'none';
                 preview.src = canvas.toDataURL("image/png", 1.0);
                 downloadBtn.href = canvas.toDataURL("image/png", 1.0);
                 downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster';

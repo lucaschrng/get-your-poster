@@ -119,21 +119,41 @@ body, html{
                 opacity: 0.8;
             }
 
-            img {
-                position: relative;
+            .preview-wrapper {
                 height: 300px;
-                width: 200px;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                justify-items: center;
+                align-items: center;
+    
+                .loader {
+                    height: 50px;
+                    width: 50px;
+                    opacity: 0.4;
+                    grid-column: 1;
+                    grid-row: 1;
+                }
+    
+                .preview {
+                    position: relative;
+                    height: 300px;
+                    width: 200px;
+                    grid-column: 1;
+                    grid-row: 1;
 
-                &::before {
-                    content: 'Loading preview...';
-                    position: absolute;
-                    height: 100%;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #2F2F2F;
-                    color: #ffffff60;
+                    
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #2F2F2F;
+                        color: #ffffff60;
+                    }
                 }
             }
         }

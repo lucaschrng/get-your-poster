@@ -117,13 +117,30 @@ body, html {
   font-weight: 600;
   opacity: 0.8;
 }
-.poster-generate .poster-img .poster-preview img {
+.poster-generate .poster-img .poster-preview .preview-wrapper {
+  height: 300px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.poster-generate .poster-img .poster-preview .preview-wrapper .loader {
+  height: 50px;
+  width: 50px;
+  opacity: 0.4;
+  grid-column: 1;
+  grid-row: 1;
+}
+.poster-generate .poster-img .poster-preview .preview-wrapper .preview {
   position: relative;
   height: 300px;
   width: 200px;
+  grid-column: 1;
+  grid-row: 1;
 }
-.poster-generate .poster-img .poster-preview img::before {
-  content: "Loading preview...";
+.poster-generate .poster-img .poster-preview .preview-wrapper .preview::before {
+  content: "";
   position: absolute;
   height: 100%;
   width: 100%;
