@@ -91,6 +91,13 @@ body, html {
   margin-top: -1728px;
   background-color: #1E1E1E;
 }
+.poster-generate > span {
+  position: absolute;
+  font-size: 28px;
+  font-weight: 600;
+  z-index: -10;
+  width: fit-content;
+}
 .poster-generate .poster-img {
   margin: 0 auto;
   height: 100vh;
@@ -207,15 +214,12 @@ body, html {
   color: var(--accent-color);
 }
 .poster ul li {
-  font-size: 28px;
   font-weight: 600;
   display: grid;
   grid-template-columns: min-content 1fr min-content;
   white-space: nowrap;
 }
 .poster ul li .separator {
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
 }
 .poster:after {

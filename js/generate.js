@@ -1,10 +1,10 @@
-let separatorText = '................................................................................................................................';
-
 let album_id = document.querySelector('.album_id').value;
 let poster = document.querySelector('.poster');
 let downloadBtn = document.querySelector('.poster-img a');
 let preview = document.querySelector('.preview');
 let loader = document.querySelector('.loader');
+let span = document.querySelector('.poster-generate > span');
+let fz = '28px';
 
 axios.get('/api/album?album_id=' + album_id)
 
@@ -46,9 +46,6 @@ function buildPoster(album) {
     let cover = document.createElement('img');
     cover.src = album.cover_xl;
 
-    let tracklist = document.createElement('ul');
-    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.data.length / 2) + ", 1fr)";
-
     let songTitleMaxLength = 0;
 
     album.tracks.data.forEach((track, index) => {
@@ -57,13 +54,45 @@ function buildPoster(album) {
         if (trackTitle.length > songTitleMaxLength) {
             songTitleMaxLength = trackTitle.length;
         }
+    });
+
+    if (songTitleMaxLength > 28 || album.tracks.data.length > 18) {
+        fz = '24px';
+    }
+    if (songTitleMaxLength > 30) {
+        fz = '22px';
+    }
+    if (songTitleMaxLength > 34) {
+        fz = '20px';
+    }
+    if (songTitleMaxLength > 37) {
+        fz = '18px';
+    }
+    if (songTitleMaxLength > 42) {
+        fz = '16px';
+    }
+    if (songTitleMaxLength > 48) {
+        fz = '12px';
+    }
+    if (songTitleMaxLength > 64) {
+        fz = '11px';
+    }
+
+    let tracklist = document.createElement('ul');
+    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.data.length / 2) + ", 1fr)";
+    tracklist.style.fontSize = fz;
+    span.style.fontSize = fz;
+
+    album.tracks.data.forEach((track, index) => {
+        let trackTitle = removeMention(track.title, 'remaster');
+        trackTitle = removeMention(trackTitle, 'album version');
+        
         let song = document.createElement('li');
         let trackNumber = document.createElement('span');
         trackNumber.innerHTML = index + 1;
         let separator = document.createElement('span');
-        separator.innerHTML = separatorText;
         separator.classList.add('separator');
-        let songTitle =document.createElement('span');
+        let songTitle = document.createElement('span');
         songTitle.innerHTML = trackTitle;
 
         song.appendChild(trackNumber);
@@ -73,45 +102,17 @@ function buildPoster(album) {
         tracklist.appendChild(song);
     });
 
-    if (songTitleMaxLength > 28 || album.tracks.data.length > 18) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '24px';
-        })
-    }
-    if (songTitleMaxLength > 30) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '22px';
-        })
-    }
-    if (songTitleMaxLength > 34) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '20px';
-        })
-    }
-    if (songTitleMaxLength > 37) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '18px';
-        })
-    }
-    if (songTitleMaxLength > 42) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '16px';
-        })
-    }
-    if (songTitleMaxLength > 48) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '12px';
-        })
-    }
-    if (songTitleMaxLength > 64) {
-        tracklist.childNodes.forEach(li => {
-            li.style.fontSize = '11px';
-        })
-    }
-
     poster.appendChild(infos);
     poster.appendChild(cover);
     poster.appendChild(tracklist);
+
+    document.querySelectorAll('.separator').forEach(separator => {
+        separatorWidth = getWidth(separator);
+        dotNb = Math.floor(separatorWidth / getWidth(span));
+        for (let i = 0; i < dotNb; i++) {
+            separator.innerHTML += '.';
+        }
+    })
 
     Vibrant.from(cover).getPalette(function(err, palette) {});
     Vibrant.from(cover).getPalette().then(function(palette) {
@@ -166,4 +167,9 @@ function removeMention(string, mention) {
         content = string;
     }
     return content;   
+}
+
+function getWidth(element) {
+    let rect = element.getBoundingClientRect();
+    return rect.right - rect.left;
 }

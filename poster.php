@@ -19,6 +19,7 @@
 
 <body class="poster-generate">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
+    <span>.</span>
     <div class="poster"></div>
 
     <div class="poster-img">
