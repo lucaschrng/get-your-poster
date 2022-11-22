@@ -1,16 +1,20 @@
 let input = document.querySelector('.search-input');
+let keywords = input.value.split(' ').join('+');
 let results = document.querySelector('.results');
 
 input.addEventListener('keyup', () => {
-    search(input.value);
+    keywords = input.value.split(' ').join('+');
+    console.log(keywords);
+    search(keywords);
 })
 
-function search(keyword) {
-    axios.get('/api/search.php?keyword=' + keyword)
+function search(keywords) {
+    axios.get('/api/search.php?keyword=' + keywords)
 
         .then(function (response) {
         // en cas de réussite de la requête
         let albums = response.data.slice(0, -1);
+        console.log(albums);
         albums = JSON.parse(albums).data;
 
         console.log(albums);
