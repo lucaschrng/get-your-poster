@@ -10,13 +10,10 @@ let apiKey = 'bd96b85d26504575df8c1cdc4e08b281';
 let artisParam = findGetParameter('artist');
 let albumParam = findGetParameter('album');
 
-console.log(albumParam);
-
 axios.get('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=' + apiKey + '&artist=' + artisParam + '&album=' + albumParam + '&format=json')
 
     .then(function (response) {
     album = response.data.album;
-    console.log(album);
 
     buildPoster(album);
     })
@@ -53,64 +50,69 @@ function buildPoster(album) {
     cover.src = 'https://lastfm.freetls.fastly.net/i/u/' + album.image[0]['#text'].slice(41);
 
     let songTitleMaxLength = 0;
+    let tracklist;
 
-    album.tracks.track.forEach((track, index) => {
-        let trackTitle = removeMention(track.name, 'remaster');
-        trackTitle = removeMention(trackTitle, 'album version');
-        if (trackTitle.length > songTitleMaxLength) {
-            songTitleMaxLength = trackTitle.length;
+    if (typeof album.tracks !== 'undefined') {
+        album.tracks.track.forEach((track, index) => {
+            let trackTitle = removeMention(track.name, 'remaster');
+            trackTitle = removeMention(trackTitle, 'album version');
+            if (trackTitle.length > songTitleMaxLength) {
+                songTitleMaxLength = trackTitle.length;
+            }
+        });
+
+        if (songTitleMaxLength > 28 || album.tracks.track.length > 18) {
+            fz = '24px';
         }
-    });
-
-    if (songTitleMaxLength > 28 || album.tracks.track.length > 18) {
-        fz = '24px';
+        if (songTitleMaxLength > 30) {
+            fz = '22px';
+        }
+        if (songTitleMaxLength > 34) {
+            fz = '20px';
+        }
+        if (songTitleMaxLength > 37) {
+            fz = '18px';
+        }
+        if (songTitleMaxLength > 42) {
+            fz = '16px';
+        }
+        if (songTitleMaxLength > 48) {
+            fz = '12px';
+        }
+        if (songTitleMaxLength > 64) {
+            fz = '11px';
+        }
+    
+        tracklist = document.createElement('ul');
+        tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.track.length / 2) + ", 1fr)";
+        tracklist.style.fontSize = fz;
+        span.style.fontSize = fz;
+    
+        album.tracks.track.forEach((track, index) => {
+            let trackTitle = removeMention(track.name, 'remaster');
+            trackTitle = removeMention(trackTitle, 'album version');
+            
+            let song = document.createElement('li');
+            let trackNumber = document.createElement('span');
+            trackNumber.innerHTML = index + 1;
+            let separator = document.createElement('span');
+            separator.classList.add('separator');
+            let songTitle = document.createElement('span');
+            songTitle.innerHTML = trackTitle;
+    
+            song.appendChild(trackNumber);
+            song.appendChild(separator);
+            song.appendChild(songTitle);
+            
+            tracklist.appendChild(song);
+        });
     }
-    if (songTitleMaxLength > 30) {
-        fz = '22px';
-    }
-    if (songTitleMaxLength > 34) {
-        fz = '20px';
-    }
-    if (songTitleMaxLength > 37) {
-        fz = '18px';
-    }
-    if (songTitleMaxLength > 42) {
-        fz = '16px';
-    }
-    if (songTitleMaxLength > 48) {
-        fz = '12px';
-    }
-    if (songTitleMaxLength > 64) {
-        fz = '11px';
-    }
-
-    let tracklist = document.createElement('ul');
-    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.track.length / 2) + ", 1fr)";
-    tracklist.style.fontSize = fz;
-    span.style.fontSize = fz;
-
-    album.tracks.track.forEach((track, index) => {
-        let trackTitle = removeMention(track.name, 'remaster');
-        trackTitle = removeMention(trackTitle, 'album version');
-        
-        let song = document.createElement('li');
-        let trackNumber = document.createElement('span');
-        trackNumber.innerHTML = index + 1;
-        let separator = document.createElement('span');
-        separator.classList.add('separator');
-        let songTitle = document.createElement('span');
-        songTitle.innerHTML = trackTitle;
-
-        song.appendChild(trackNumber);
-        song.appendChild(separator);
-        song.appendChild(songTitle);
-        
-        tracklist.appendChild(song);
-    });
 
     poster.appendChild(infos);
     poster.appendChild(cover);
-    poster.appendChild(tracklist);
+    if(typeof tracklist !== 'undefined') {
+        poster.appendChild(tracklist);
+    }
 
     document.querySelectorAll('.separator').forEach(separator => {
         separatorWidth = getWidth(separator);
