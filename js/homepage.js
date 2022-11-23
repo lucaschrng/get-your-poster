@@ -1,11 +1,18 @@
 let input = document.querySelector('.search-input');
 let keywords = input.value.split(' ').join('+');
 let results = document.querySelector('.results');
+let deleteBtn = document.querySelector('.cross');
+
 
 input.addEventListener('keyup', () => {
     keywords = input.value.split(' ').join('+');
     console.log(keywords);
     search(keywords);
+})
+
+deleteBtn.addEventListener('click', () => {
+    input.value = "";
+    input.select();
 })
 
 function search(keywords) {

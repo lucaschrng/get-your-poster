@@ -16,19 +16,45 @@ body, html{
     align-items: center;
     padding: 2rem;
 
-    input {
-        width: 500px;
-        color: #ffffff;
-        background-color: #2F2F2F;
-        border: 1px solid #ffffff10;
-        outline: none;
-        border-radius: 5px;
-        padding: 1rem;
-        font-size: 1.2rem;
+    .search-bar {
+        width: 30rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content;
+        justify-items: flex-end;
+        align-items: center;
 
         @media screen and (max-width: 900px) {
             width: 100%;
             font-size: 1rem;
+        }
+
+        input {
+            grid-column: 1;
+            grid-row: 1;
+            width: 100%;
+            color: #ffffff;
+            background-color: #2F2F2F;
+            border: 1px solid #ffffff10;
+            outline: none;
+            border-radius: 5px;
+            padding: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .cross {
+            grid-column: 1;
+            grid-row: 1;
+            filter: invert(1);
+            height: 2rem;
+            margin-right: 1rem;
+            border-radius: 5px;
+            opacity: 0.5;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #b5b5b5;
+            }
         }
     }
 
