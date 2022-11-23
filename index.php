@@ -12,10 +12,7 @@
 </head>
 
 <body class="home">
-    <div class="search-bar">
-        <input class="search-input" type="text" name="album" placeholder="Search for an album">
-        <img class="cross" src="./src/img/cross.svg" alt="">
-    </div>
+    <input class="search-input" type="text" name="album" placeholder="Search for an album">
     <div class="results"></div>
 </body>
 

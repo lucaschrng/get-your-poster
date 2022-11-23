@@ -9,7 +9,7 @@ input.addEventListener('keyup', () => {
 })
 
 function search(keywords) {
-    axios.get('/api/search.php?keyword=' + keywords)
+    axios.get('/api/search?keyword=' + keywords)
 
         .then(function (response) {
         // en cas de réussite de la requête
@@ -49,7 +49,7 @@ function search(keywords) {
 
 function addResult(album) {
     let card = document.createElement('a');
-    card.href = '/poster?artist=' + album.artist.name + '&album=' + album.title;
+    card.href = '/poster.php?album_id=' + album.id;
 
     let cover = document.createElement('img');
     cover.src = album.cover_big;
