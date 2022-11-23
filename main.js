@@ -1,3 +1,6 @@
+import './main.scss';
+const axios = require('axios').default;
+
 let input = document.querySelector('.search-input');
 let keywords = input.value.split(' ').join('+');
 let results = document.querySelector('.results');
