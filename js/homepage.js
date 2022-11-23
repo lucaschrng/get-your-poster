@@ -1,35 +1,40 @@
 let input = document.querySelector('.search-input');
 let keywords = input.value.split(' ').join('+');
 let results = document.querySelector('.results');
-let deleteBtn = document.querySelector('.cross');
-
-let apiKey = 'bd96b85d26504575df8c1cdc4e08b281';
 
 input.addEventListener('keyup', () => {
     keywords = input.value.split(' ').join('+');
+    console.log(keywords);
     search(keywords);
 })
 
-deleteBtn.addEventListener('click', () => {
-    input.value = "";
-    input.select();
-})
-
 function search(keywords) {
-    axios.get('https://ws.audioscrobbler.com/2.0/?method=album.search&album=' + keywords + '&api_key=' + apiKey + '&format=json')
+    axios.get('/api/search.php?keyword=' + keywords)
 
         .then(function (response) {
         // en cas de réussite de la requête
-        let albums = response.data.results.albummatches.album;
+        let albums = response.data.slice(0, -1);
+        console.log(albums);
+        albums = JSON.parse(albums).data;
+
         console.log(albums);
 
         let albumIndex = 0;
+        let offset = 0;
 
         removeResults();
         while (albumIndex < 50) {
-            if (albumIndex < albums.length) {
-                addResult(albums[albumIndex]);
-                albumIndex++;
+            if (albumIndex + offset < albums.length) {
+                if (albums[albumIndex + offset].record_type === "album") {
+                    addResult(albums[albumIndex + offset]);
+                    albumIndex++; 
+                } else {
+                    if (albumIndex + offset < albums.length) {
+                        offset++;
+                    } else {
+                        albumIndex = 50;
+                    }
+                }
             } else {
                 albumIndex = 50;
             }
@@ -44,18 +49,18 @@ function search(keywords) {
 
 function addResult(album) {
     let card = document.createElement('a');
-    card.href = './poster.html?artist=' + album.artist.split(' ').join('+') + '&album=' + album.name.split(' ').join('+');
+    card.href = '/poster?artist=' + album.artist.name + '&album=' + album.title;
 
     let cover = document.createElement('img');
-    cover.src = 'https://lastfm.freetls.fastly.net/i/u/300x300/' + album.image[0]['#text'].slice(41);
+    cover.src = album.cover_big;
 
     card.appendChild(cover);
 
     let infos = document.createElement('div');
     let title = document.createElement('h2');
-    title.innerHTML = album.name;
+    title.innerHTML = album.title;
     let artist = document.createElement('h3');
-    artist.innerHTML = album.artist;
+    artist.innerHTML = album.artist.name;
 
     infos.appendChild(title);
     infos.appendChild(artist);
