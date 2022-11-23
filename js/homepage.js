@@ -44,7 +44,7 @@ function search(keywords) {
 
 function addResult(album) {
     let card = document.createElement('a');
-    card.href = '/poster.html?artist=' + album.artist.split(' ').join('+') + '&album=' + album.name.split(' ').join('+');
+    card.href = './poster.html?artist=' + album.artist.split(' ').join('+') + '&album=' + album.name.split(' ').join('+');
 
     let cover = document.createElement('img');
     cover.src = 'https://lastfm.freetls.fastly.net/i/u/300x300/' + album.image[0]['#text'].slice(41);
