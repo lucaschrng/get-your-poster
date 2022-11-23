@@ -6,11 +6,17 @@ let loader = document.querySelector('.loader');
 let span = document.querySelector('.poster-generate > span');
 let fz = '28px';
 
-axios.get('/api/album?album_id=' + album_id)
+let apiKey = 'bd96b85d26504575df8c1cdc4e08b281';
+let artisParam = findGetParameter('artist');
+let albumParam = findGetParameter('album');
+
+console.log(albumParam);
+
+axios.get('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=' + apiKey + '&artist=' + artisParam + '&album=' + albumParam + '&format=json')
 
     .then(function (response) {
-    let album = response.data.slice(0, -1);
-    album = JSON.parse(album);
+    album = response.data.album;
+    console.log(album);
 
     buildPoster(album);
     })
@@ -19,10 +25,10 @@ function buildPoster(album) {
     let infos = document.createElement('div');
 
     let artist = document.createElement('h2');
-    artist.innerHTML = album.artist.name;
+    artist.innerHTML = album.artist;
 
     let title = document.createElement('h1');
-    let titleContent = removeMention(album.title, 'remaster');    
+    let titleContent = removeMention(album.name, 'remaster');    
 
     titleWords = titleContent.split(' ');
     titleWords.forEach(word => {
@@ -31,7 +37,7 @@ function buildPoster(album) {
         title.appendChild(wordNode);
     })
 
-    if (album.title.length > 13) {
+    if (album.name.length > 13) {
         title.style.fontSize = '80px';
         title.style.lineHeight = '80px';
     }
@@ -44,19 +50,19 @@ function buildPoster(album) {
     infos.appendChild(title);
 
     let cover = document.createElement('img');
-    cover.src = album.cover_xl;
+    cover.src = 'https://lastfm.freetls.fastly.net/i/u/' + album.image[0]['#text'].slice(41);
 
     let songTitleMaxLength = 0;
 
-    album.tracks.data.forEach((track, index) => {
-        let trackTitle = removeMention(track.title, 'remaster');
+    album.tracks.track.forEach((track, index) => {
+        let trackTitle = removeMention(track.name, 'remaster');
         trackTitle = removeMention(trackTitle, 'album version');
         if (trackTitle.length > songTitleMaxLength) {
             songTitleMaxLength = trackTitle.length;
         }
     });
 
-    if (songTitleMaxLength > 28 || album.tracks.data.length > 18) {
+    if (songTitleMaxLength > 28 || album.tracks.track.length > 18) {
         fz = '24px';
     }
     if (songTitleMaxLength > 30) {
@@ -79,12 +85,12 @@ function buildPoster(album) {
     }
 
     let tracklist = document.createElement('ul');
-    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.data.length / 2) + ", 1fr)";
+    tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(album.tracks.track.length / 2) + ", 1fr)";
     tracklist.style.fontSize = fz;
     span.style.fontSize = fz;
 
-    album.tracks.data.forEach((track, index) => {
-        let trackTitle = removeMention(track.title, 'remaster');
+    album.tracks.track.forEach((track, index) => {
+        let trackTitle = removeMention(track.name, 'remaster');
         trackTitle = removeMention(trackTitle, 'album version');
         
         let song = document.createElement('li');
@@ -133,7 +139,7 @@ function buildPoster(album) {
                 loader.style.display = 'none';
                 preview.src = canvas.toDataURL("image/png", 1.0);
                 downloadBtn.href = canvas.toDataURL("image/png", 1.0);
-                downloadBtn.download = album.artist.name.split(' ').join('') + "-" + album.title.split(' ').join('') + '_Poster';
+                downloadBtn.download = album.artist.split(' ').join('') + "-" + album.name.split(' ').join('') + '_Poster';
                 downloadBtn.style.zIndex = 1;
                 downloadBtn.style.color = '#ffffff';
             })
@@ -172,4 +178,17 @@ function removeMention(string, mention) {
 function getWidth(element) {
     let rect = element.getBoundingClientRect();
     return rect.right - rect.left;
+}
+
+function findGetParameter(parameterName) {
+    var result = null,
+        tmp = [];
+    location.search
+        .slice(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
 }
