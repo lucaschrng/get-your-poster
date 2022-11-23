@@ -9,6 +9,10 @@ body, html{
     overflow-x: hidden;
 }
 
+html{
+    overflow-y: overlay;
+}
+
 .home {
     background-color: #1E1E1E;
     display: flex;

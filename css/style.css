@@ -9,6 +9,10 @@ body, html {
   overflow-x: hidden;
 }
 
+html {
+  overflow-y: overlay;
+}
+
 .home {
   background-color: #1E1E1E;
   display: flex;
@@ -16,8 +20,24 @@ body, html {
   align-items: center;
   padding: 2rem;
 }
-.home input {
-  width: 500px;
+.home .search-bar {
+  width: 30rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content;
+  justify-items: flex-end;
+  align-items: center;
+}
+@media screen and (max-width: 900px) {
+  .home .search-bar {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+.home .search-bar input {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
   color: #ffffff;
   background-color: #2F2F2F;
   border: 1px solid rgba(255, 255, 255, 0.062745098);
@@ -26,11 +46,18 @@ body, html {
   padding: 1rem;
   font-size: 1.2rem;
 }
-@media screen and (max-width: 900px) {
-  .home input {
-    width: 100%;
-    font-size: 1rem;
-  }
+.home .search-bar .cross {
+  grid-column: 1;
+  grid-row: 1;
+  filter: invert(1);
+  height: 2rem;
+  margin-right: 1rem;
+  border-radius: 5px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.home .search-bar .cross:hover {
+  background-color: #b5b5b5;
 }
 .home .results {
   display: grid;

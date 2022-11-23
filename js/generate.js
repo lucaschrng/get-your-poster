@@ -137,7 +137,7 @@ function buildPoster(album) {
                 downloadBtn.style.zIndex = 1;
                 downloadBtn.style.color = '#ffffff';
             })
-        }, 2000);
+        }, 100);
     })
 }
 

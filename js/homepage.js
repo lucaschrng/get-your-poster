@@ -1,11 +1,22 @@
 let input = document.querySelector('.search-input');
 let keywords = input.value.split(' ').join('+');
 let results = document.querySelector('.results');
+let cross = document.querySelector('.cross');
+
+input.focus();
+
+cross.addEventListener('click', () => {
+    input.value = "";
+    input.focus();
+})
 
 input.addEventListener('keyup', () => {
     keywords = input.value.split(' ').join('+');
-    console.log(keywords);
-    search(keywords);
+    if (keywords === "") {
+        //show trending
+    } else {
+        search(keywords);
+    }
 })
 
 function search(keywords) {
@@ -14,10 +25,7 @@ function search(keywords) {
         .then(function (response) {
         // en cas de réussite de la requête
         let albums = response.data.slice(0, -1);
-        console.log(albums);
         albums = JSON.parse(albums).data;
-
-        console.log(albums);
 
         let albumIndex = 0;
         let offset = 0;
@@ -49,7 +57,7 @@ function search(keywords) {
 
 function addResult(album) {
     let card = document.createElement('a');
-    card.href = '/poster.php?album_id=' + album.id;
+    card.href = '/poster?album_id=' + album.id;
 
     let cover = document.createElement('img');
     cover.src = album.cover_big;
