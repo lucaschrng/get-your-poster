@@ -55,7 +55,7 @@ function getNewToken()
     </div>
   </div>
   <div class="results-wrapper">
-    <h2 class="trending-title">Trending</h2>
+    <h2 class="trending-title">Trending:</h2>
     <div class="results"></div>
   </div>
 
