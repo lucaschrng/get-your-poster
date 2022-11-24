@@ -79,7 +79,7 @@ html {
   cursor: pointer;
 }
 .home .search-bar .cross:hover {
-  background-color: #b5b5b5;
+  background-color: rgba(0, 0, 0, 0.1882352941);
 }
 .home .results-wrapper {
   padding: 4rem 2rem;
