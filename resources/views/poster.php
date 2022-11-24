@@ -1,3 +1,42 @@
+<?php
+
+session_start();
+
+if ($_SESSION || isset($_SESSION['genTime'])) {
+    if (time() - $_SESSION['genTime'] >= 3600) {
+        getNewToken();
+    }
+} else {
+    getNewToken();
+};
+
+function getNewToken()
+{
+    $client_id = $_ENV['SPOTIFY_CLIENT_ID'];
+    $client_secret = $_ENV['SPOTIFY_CLIENT_SECRET'];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HEADER, [
+        'Content-Type: application/x-www-form-urlencoded',
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'grant_type' => 'client_credentials',
+        'client_id' => $client_id,
+        'client_secret' => $client_secret
+    ]));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $output = json_decode(curl_exec($ch));
+    curl_close($ch);
+    $_SESSION['token'] = $output->access_token;
+    $_SESSION['genTime'] = time();
+};
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

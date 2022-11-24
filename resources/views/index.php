@@ -12,8 +12,8 @@ if ($_SESSION || isset($_SESSION['genTime'])) {
 
 function getNewToken()
 {
-  $client_id = '8f93822c9e32410fb4aa75408ed39003';
-  $client_secret = '23080da88d804a95b4843872667e7914';
+  $client_id = $_ENV['SPOTIFY_CLIENT_ID'];
+  $client_secret = $_ENV['SPOTIFY_CLIENT_SECRET'];
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
   curl_setopt($ch, CURLOPT_POST, true);
