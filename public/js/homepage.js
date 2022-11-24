@@ -9,39 +9,55 @@
 
 var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/dist/browser/axios.cjs")["default"]);
 var input = document.querySelector('.search-input');
-var keywords = input.value.split(' ').join('+');
+var keywords;
 var results = document.querySelector('.results');
 var cross = document.querySelector('.cross');
+var trendingTitle = document.querySelector('.trending-title');
+var lastClick = 0;
+
+// initialise page
+getTop50();
+
+// add event listeners
+
 cross.addEventListener('click', function () {
   input.value = "";
   input.focus();
+  getTop50();
 });
-var lastClick = 0;
 input.addEventListener('keyup', function () {
-  keywords = input.value.split(' ').join('+');
-  console.log(Date.now() - lastClick);
+  keywords = encodeURI(input.value);
   lastClick = Date.now();
   setTimeout(function () {
     if (Date.now() - lastClick > 300) {
       if (keywords === "") {
-        //show trending
+        getTop50();
       } else {
         search(keywords);
       }
     }
   }, 300);
 });
-function search(keywords) {
-  axios.get('api/search/' + keywords).then(function (response) {
-    // en cas de réussite de la requête
-    albums = response.data.albums.items;
+
+// declare functions
+
+function getTop50() {
+  axios.get('api/top50').then(function (response) {
+    var albums = response.data.items;
     var albumIndex = 0;
     var offset = 0;
+    var displayedAlbums = [];
+    trendingTitle.style.opacity = 1;
     removeResults();
     while (albumIndex < 50) {
       if (albumIndex + offset < albums.length) {
-        if (albums[albumIndex + offset].album_type === "album") {
-          addResult(albums[albumIndex + offset]);
+        if (albums[albumIndex + offset].track.album.album_type === "album" && !displayedAlbums.includes(albums[albumIndex + offset].track.album.name)) {
+          var albumId = albums[albumIndex + offset].track.album.id;
+          var albumTitle = albums[albumIndex + offset].track.album.name;
+          var albumArtist = albums[albumIndex + offset].track.album.artists[0].name;
+          var albumCoverUrl = albums[albumIndex + offset].track.album.images[0].url;
+          displayedAlbums.push(albumTitle);
+          addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
           albumIndex++;
         } else {
           if (albumIndex + offset < albums.length) {
@@ -54,18 +70,42 @@ function search(keywords) {
         albumIndex = 50;
       }
     }
-  }).then(function () {
-    // dans tous les cas
   });
 }
-function addResult(album) {
-  var albumId = album.id;
-  var albumTitle = album.name;
+function search(keywords) {
+  axios.get('api/search/' + keywords).then(function (response) {
+    var albums = response.data.albums.items;
+    var albumIndex = 0;
+    var offset = 0;
+    trendingTitle.style.opacity = null;
+    removeResults();
+    while (albumIndex < 50) {
+      if (albumIndex + offset < albums.length) {
+        if (albums[albumIndex + offset].album_type === "album") {
+          var albumId = albums[albumIndex + offset].id;
+          var albumTitle = albums[albumIndex + offset].name;
+          var albumArtist = albums[albumIndex + offset].artists[0].name;
+          var albumCoverUrl = albums[albumIndex + offset].images[0].url;
+          addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
+          albumIndex++;
+        } else {
+          if (albumIndex + offset < albums.length) {
+            offset++;
+          } else {
+            albumIndex = 50;
+          }
+        }
+      } else {
+        albumIndex = 50;
+      }
+    }
+  });
+}
+function addResult(albumId, albumTitle, albumArtist, albumCoverUrl) {
+  // temporary patch
   if (albumTitle === "<COPINGMECHANISM>") {
     albumTitle = "&lt;COPINGMECHANISM&gt;";
   }
-  var albumArtist = album.artists[0].name;
-  var albumCoverUrl = album.images[0].url;
   var card = document.createElement('a');
   card.href = '/poster/' + albumId;
   var cover = document.createElement('img');

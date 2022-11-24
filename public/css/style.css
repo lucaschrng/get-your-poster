@@ -10,15 +10,28 @@ body, html {
 }
 
 html {
-  overflow-y: overlay;
+  overflow-y: hidden;
 }
 
 .home {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
   background-color: #1E1E1E;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
+}
+.home .search-wrapper {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   padding: 2rem;
+  z-index: 10;
 }
 .home .search-bar {
   width: 30rem;
@@ -27,6 +40,7 @@ html {
   grid-template-rows: min-content;
   justify-items: flex-end;
   align-items: center;
+  border-radius: 5px;
 }
 @media screen and (max-width: 900px) {
   .home .search-bar {
@@ -39,12 +53,20 @@ html {
   grid-row: 1;
   width: 100%;
   color: #ffffff;
-  background-color: #2F2F2F;
+  background-color: rgba(51, 51, 51, 0.5647058824);
+  -webkit-backdrop-filter: blur(50px);
+          backdrop-filter: blur(50px);
   border: 1px solid rgba(255, 255, 255, 0.062745098);
   outline: none;
-  border-radius: 5px;
+  border-radius: inherit;
   padding: 1rem;
   font-size: 1.2rem;
+}
+.home .search-bar input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.4392156863);
+}
+.home .search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.4392156863);
 }
 .home .search-bar .cross {
   grid-column: 1;
@@ -59,12 +81,20 @@ html {
 .home .search-bar .cross:hover {
   background-color: #b5b5b5;
 }
+.home .results-wrapper {
+  padding: 4rem 2rem 2rem;
+}
+.home .trending-title {
+  opacity: 0;
+  color: #ffffff;
+  font-size: 2rem;
+  align-self: flex-start;
+}
 .home .results {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
   margin-top: 2rem;
-  padding: 2rem;
 }
 @media screen and (max-width: 1100px) {
   .home .results {
@@ -82,6 +112,8 @@ html {
   }
 }
 .home .results a {
+  isolation: isolate;
+  z-index: 0;
   max-width: 300px;
   color: #ffffff;
   text-decoration: none;
@@ -112,6 +144,7 @@ html {
   font-weight: 500;
   font-size: 1rem;
   opacity: 0.8;
+  z-index: -10;
 }
 
 .poster-generate {

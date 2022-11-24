@@ -48,11 +48,16 @@ function getNewToken()
 </head>
 
 <body class="home">
-  <div class="search-bar">
-    <input class="search-input" type="text" name="album" placeholder="Search for an album" autofocus>
-    <img class="cross" src="img/cross.svg" alt="">
+  <div class="search-wrapper">
+    <div class="search-bar">
+      <input class="search-input" type="text" name="album" placeholder="Search for an album" autofocus>
+      <img class="cross" src="img/cross.svg" alt="">
+    </div>
   </div>
-  <div class="results"></div>
+  <div class="results-wrapper">
+    <h2 class="trending-title">Trending</h2>
+    <div class="results"></div>
+  </div>
 
   <script src="js/homepage.js"></script>
 </body>

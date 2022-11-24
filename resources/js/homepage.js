@@ -1,26 +1,31 @@
 const axios = require('axios').default;
 
 let input = document.querySelector('.search-input');
-let keywords = input.value.split(' ').join('+');
+let keywords;
 let results = document.querySelector('.results');
 let cross = document.querySelector('.cross');
+let trendingTitle = document.querySelector('.trending-title');
+let lastClick = 0;
+
+// initialise page
+getTop50();
+
+// add event listeners
 
 cross.addEventListener('click', () => {
     input.value = "";
     input.focus();
+    getTop50();
 })
 
-let lastClick = 0;
-
 input.addEventListener('keyup', () => {
-    keywords = input.value.split(' ').join('+');
-    console.log(Date.now() - lastClick)
+    keywords = encodeURI(input.value);
     lastClick = Date.now();
     
     setTimeout(() => {
         if (Date.now() - lastClick > 300) {
             if (keywords === "") {
-                //show trending
+                getTop50();
             } else {
                 search(keywords);
             }
@@ -28,22 +33,32 @@ input.addEventListener('keyup', () => {
     }, 300);
 })
 
-function search(keywords) {
-    axios.get('api/search/' + keywords)
+// declare functions
+
+function getTop50() {
+    axios.get('api/top50')
 
         .then(function (response) {
-        // en cas de réussite de la requête
-        albums = response.data.albums.items;
+        let albums = response.data.items;
 
         let albumIndex = 0;
         let offset = 0;
+        let displayedAlbums = [];
 
+        trendingTitle.style.opacity = 1;
         removeResults();
-        while (albumIndex < 50) {
 
+        while (albumIndex < 50) {
             if (albumIndex + offset < albums.length) {
-                if (albums[albumIndex + offset].album_type === "album") {
-                    addResult(albums[albumIndex + offset]);
+                if (albums[albumIndex + offset].track.album.album_type === "album" && !displayedAlbums.includes(albums[albumIndex + offset].track.album.name)) {
+
+                    let albumId = albums[albumIndex + offset].track.album.id;
+                    let albumTitle = albums[albumIndex + offset].track.album.name;
+                    let albumArtist = albums[albumIndex + offset].track.album.artists[0].name;
+                    let albumCoverUrl = albums[albumIndex + offset].track.album.images[0].url;
+                    displayedAlbums.push(albumTitle);
+
+                    addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
                     albumIndex++; 
                 } else {
                     if (albumIndex + offset < albums.length) {
@@ -56,22 +71,52 @@ function search(keywords) {
                 albumIndex = 50;
             }
         }
-
-        })
-
-        .then(function () {
-        // dans tous les cas
-        })
+    })
 }
 
-function addResult(album) {
-    let albumId = album.id;
-    let albumTitle = album.name;
+function search(keywords) {
+    axios.get('api/search/' + keywords)
+
+        .then(function (response) {
+        let albums = response.data.albums.items;
+
+        let albumIndex = 0;
+        let offset = 0;
+
+        trendingTitle.style.opacity = null;
+        removeResults();
+
+        while (albumIndex < 50) {
+
+            if (albumIndex + offset < albums.length) {
+                if (albums[albumIndex + offset].album_type === "album") {
+
+                    let albumId = albums[albumIndex + offset].id;
+                    let albumTitle = albums[albumIndex + offset].name;
+                    let albumArtist = albums[albumIndex + offset].artists[0].name;
+                    let albumCoverUrl = albums[albumIndex + offset].images[0].url;
+
+                    addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
+                    albumIndex++; 
+                } else {
+                    if (albumIndex + offset < albums.length) {
+                        offset++;
+                    } else {
+                        albumIndex = 50;
+                    }
+                }
+            } else {
+                albumIndex = 50;
+            }
+        }
+    })
+}
+
+function addResult(albumId, albumTitle, albumArtist, albumCoverUrl) {
+    // temporary patch
     if (albumTitle === "<COPINGMECHANISM>") {
         albumTitle = "&lt;COPINGMECHANISM&gt;";
     }
-    let albumArtist = album.artists[0].name;
-    let albumCoverUrl = album.images[0].url;
 
     let card = document.createElement('a');
     card.href = '/poster/' + albumId;
@@ -82,13 +127,16 @@ function addResult(album) {
     card.appendChild(cover);
 
     let infos = document.createElement('div');
+
     let title = document.createElement('h2');
     title.innerHTML = albumTitle;
+
     let artist = document.createElement('h3');
     artist.innerHTML = albumArtist;
 
     infos.appendChild(title);
     infos.appendChild(artist);
+    
     card.appendChild(infos);
 
     results.appendChild(card);
