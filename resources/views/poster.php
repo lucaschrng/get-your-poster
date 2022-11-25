@@ -64,7 +64,7 @@ function getNewToken()
         <a class="download" href="">Download</a>
         <a class="new-poster" href="/">Make another poster →</a>
     </div>
-    <script src="/js/generate.js"></script>
+    <script src="/js/generate.js" defer></script>
 </body>
 
 </html>

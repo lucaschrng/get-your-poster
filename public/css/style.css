@@ -188,7 +188,6 @@ html {
   opacity: 0.8;
 }
 .poster-generate .poster-img .poster-preview .preview-wrapper {
-  height: 300px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
