@@ -20,7 +20,6 @@ axios.get('/api/album/' + album_id)
 
 function buildPoster(album) {
     let albumTitle = album.name;
-    console.log(album.artists);
     let albumArtists = album.artists;
     let albumCoverUrl = album.images[0].url;
     let albumTracks = album.tracks.items;
@@ -30,8 +29,6 @@ function buildPoster(album) {
     let albumArtistTitle = '';
 
     albumArtists.forEach((artist, index) => {
-        console.log(index);
-        console.log(artist.name);
         if (index !== 0) {
             albumArtistTitle += ', ' + artist.name;
         } else {
@@ -52,14 +49,14 @@ function buildPoster(album) {
         title.appendChild(wordNode);
     })
 
-    if (albumTitle.length > 13) {
-        title.style.fontSize = '80px';
-        title.style.lineHeight = '80px';
-    }
-    if (titleWords.length > 6) {
-        title.style.fontSize = '72px';
-        title.style.lineHeight = '64px';
-    }
+    // if (removeMention(albumTitle, 'remaster').length > 15) {
+    //     title.style.fontSize = '80px';
+    //     title.style.lineHeight = '80px';
+    // }
+    // if (titleWords.length > 6) {
+    //     title.style.fontSize = '72px';
+    //     title.style.lineHeight = '64px';
+    // }
 
     infos.appendChild(artist);
     infos.appendChild(title);
@@ -77,28 +74,6 @@ function buildPoster(album) {
             songTitleMaxLength = trackTitle.length;
         }
     });
-
-    if (songTitleMaxLength > 28 || albumTracks.length > 18) {
-        fz = '24px';
-    }
-    if (songTitleMaxLength > 30) {
-        fz = '22px';
-    }
-    if (songTitleMaxLength > 34) {
-        fz = '20px';
-    }
-    if (songTitleMaxLength > 37) {
-        fz = '18px';
-    }
-    if (songTitleMaxLength > 42) {
-        fz = '16px';
-    }
-    if (songTitleMaxLength > 48) {
-        fz = '12px';
-    }
-    if (songTitleMaxLength > 64) {
-        fz = '11px';
-    }
 
     let tracklist = document.createElement('ul');
     tracklist.style.gridTemplateRows = "repeat(" + Math.ceil(albumTracks.length / 2) + ", 1fr)";
@@ -129,6 +104,43 @@ function buildPoster(album) {
     poster.appendChild(cover);
     poster.appendChild(tracklist);
 
+    if (checkWrap(title)) {
+        title.style.fontSize = '90px';
+        title.style.lineHeight = '90px';
+    }
+
+    let titleFz = 100
+    while (checkWrap2(title)) {
+        titleFz--;
+        title.style.fontSize = titleFz + 'px';
+    }
+    title.style.lineHeight = titleFz + 'px';
+
+    let minSeparatorWidth = 100000;
+
+    document.querySelectorAll('.separator').forEach(separator => {
+        if (getWidth(separator) < minSeparatorWidth) {
+            minSeparatorWidth = getWidth(separator);
+        }
+    });
+
+    console.log(document.querySelectorAll('.separator + span'));
+    let trackFz = 24;
+
+    while (minSeparatorWidth < 10) {
+        minSeparatorWidth = 100000;
+        trackFz--;
+
+        tracklist.style.fontSize = trackFz + 'px';
+        span.style.fontSize = trackFz + 'px';
+
+        document.querySelectorAll('.separator').forEach(separator => {
+            if (getWidth(separator) < minSeparatorWidth) {
+                minSeparatorWidth = getWidth(separator);
+            }
+        });
+    }
+
     document.querySelectorAll('.separator').forEach(separator => {
         separatorWidth = getWidth(separator);
         dotNb = Math.floor(separatorWidth / getWidth(span));
@@ -157,7 +169,7 @@ function buildPoster(album) {
                 loader.style.display = 'none';
                 preview.src = canvas.toDataURL("image/png", 1.0);
                 downloadBtn.href = canvas.toDataURL("image/png", 1.0);
-                downloadBtn.download = albumArtistTitle.replace(',','').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
+                downloadBtn.download = albumArtistTitle.replaceAll('.','').replaceAll(',','-').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
                 downloadBtn.style.zIndex = 1;
                 downloadBtn.style.color = '#ffffff';
             })
@@ -196,4 +208,26 @@ function removeMention(string, mention) {
 function getWidth(element) {
     let rect = element.getBoundingClientRect();
     return rect.right - rect.left;
+}
+
+function checkWrap(element) {
+    let isWrap = false;
+    let topPos = element.childNodes[0].offsetTop;
+    element.childNodes.forEach(child => {
+        if (!(child.offsetTop === topPos)) {
+            isWrap = true;
+        }
+    });
+    return isWrap;
+}
+
+function checkWrap2(element) {
+    let isWrap = false;
+    let topPos = element.childNodes[0].offsetTop;
+    element.childNodes.forEach(child => {
+        if (!(child.offsetTop < topPos*2)) {
+            isWrap = true;
+        }
+    });
+    return isWrap;
 }

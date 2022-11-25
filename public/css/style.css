@@ -241,10 +241,11 @@ html {
   position: relative;
   padding: 100px;
   width: 1152px;
-  height: 1728px;
+  min-height: 1728px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 2rem;
   mix-blend-mode: multiply;
 }
 .poster h2 {
@@ -259,10 +260,9 @@ html {
   text-align: justify;
   color: var(--accent-color);
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  -moz-column-gap: 25px;
-       column-gap: 25px;
+  -moz-column-gap: 0.5em;
+       column-gap: 0.5em;
 }
 .poster img {
   z-index: 2;
