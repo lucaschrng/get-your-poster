@@ -54,15 +54,36 @@ function getNewToken()
     <div class="poster"></div>
 
     <div class="poster-img">
-        <div class="poster-preview">
-            <p>Preview</p>
-            <div class="preview-wrapper">
-                <img class="preview" src="" alt="">
-                <img class="loader" src="/img/loading.gif" alt="">
+        <div class="poster-preview-wrapper">
+            <div class="poster-preview">
+                <p>Preview</p>
+                <div class="preview-wrapper">
+                    <img class="preview" src="" alt="">
+                    <img class="loader" src="/img/loading.gif" alt="">
+                </div>
             </div>
+            <a class="download" href="">Download</a>
+            <a class="new-poster" href="/">Make another poster →</a>
         </div>
-        <a class="download" href="">Download</a>
-        <a class="new-poster" href="/">Make another poster →</a>
+        <!-- <div class="options-panel">
+            <p>Options</p>
+            <div class="option">
+                <label for="invert-button">Invert text and background colors</label>
+                <input type="checkbox" id="invert-button" class="invert-button">
+            </div>
+            <div class="option">
+                <label for="justify-button">Justify title</label>
+                <input type="checkbox" id="justify-button" class="justify-button">
+            </div>
+            <div class="option">
+                <label for="image-button">Add custom image</label>
+                <input type="file" id="image-button" name="image-button" accept="image/png, image/jpeg">
+            </div>
+            <div class="option">
+                <label for="color-button">Choose custom color</label>
+                <input type="color" id="color-button" name="color-button">
+            </div>
+        </div> -->
     </div>
     <script src="/js/generate.js" defer></script>
 </body>

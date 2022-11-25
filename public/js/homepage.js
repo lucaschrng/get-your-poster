@@ -32,8 +32,10 @@ input.addEventListener('keyup', function () {
     if (Date.now() - lastClick > 300) {
       if (keywords === "") {
         getTop50();
+        document.body.scrollTop = 0;
       } else {
         search(keywords);
+        document.body.scrollTop = 0;
       }
     }
   }, 300);
