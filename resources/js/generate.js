@@ -20,14 +20,27 @@ axios.get('/api/album/' + album_id)
 
 function buildPoster(album) {
     let albumTitle = album.name;
-    let albumArtist = album.artists[0].name;
+    console.log(album.artists);
+    let albumArtists = album.artists;
     let albumCoverUrl = album.images[0].url;
     let albumTracks = album.tracks.items;
 
     let infos = document.createElement('div');
 
+    let albumArtistTitle = '';
+
+    albumArtists.forEach((artist, index) => {
+        console.log(index);
+        console.log(artist.name);
+        if (index !== 0) {
+            albumArtistTitle += ', ' + artist.name;
+        } else {
+            albumArtistTitle += artist.name;
+        }
+    });
+
     let artist = document.createElement('h2');
-    artist.innerHTML = albumArtist;
+    artist.innerHTML = albumArtistTitle;
 
     let title = document.createElement('h1');
     let titleContent = removeMention(albumTitle, 'remaster');    
@@ -144,7 +157,7 @@ function buildPoster(album) {
                 loader.style.display = 'none';
                 preview.src = canvas.toDataURL("image/png", 1.0);
                 downloadBtn.href = canvas.toDataURL("image/png", 1.0);
-                downloadBtn.download = albumArtist.split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
+                downloadBtn.download = albumArtistTitle.replace(',','').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
                 downloadBtn.style.zIndex = 1;
                 downloadBtn.style.color = '#ffffff';
             })

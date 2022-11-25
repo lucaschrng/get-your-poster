@@ -21858,12 +21858,23 @@ axios.get('/api/album/' + album_id).then(function (response) {
 });
 function buildPoster(album) {
   var albumTitle = album.name;
-  var albumArtist = album.artists[0].name;
+  console.log(album.artists);
+  var albumArtists = album.artists;
   var albumCoverUrl = album.images[0].url;
   var albumTracks = album.tracks.items;
   var infos = document.createElement('div');
+  var albumArtistTitle = '';
+  albumArtists.forEach(function (artist, index) {
+    console.log(index);
+    console.log(artist.name);
+    if (index !== 0) {
+      albumArtistTitle += ', ' + artist.name;
+    } else {
+      albumArtistTitle += artist.name;
+    }
+  });
   var artist = document.createElement('h2');
-  artist.innerHTML = albumArtist;
+  artist.innerHTML = albumArtistTitle;
   var title = document.createElement('h1');
   var titleContent = removeMention(albumTitle, 'remaster');
   titleWords = titleContent.split(' ');
@@ -21963,7 +21974,7 @@ function buildPoster(album) {
         loader.style.display = 'none';
         preview.src = canvas.toDataURL("image/png", 1.0);
         downloadBtn.href = canvas.toDataURL("image/png", 1.0);
-        downloadBtn.download = albumArtist.split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
+        downloadBtn.download = albumArtistTitle.replace(',', '').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
         downloadBtn.style.zIndex = 1;
         downloadBtn.style.color = '#ffffff';
       });
