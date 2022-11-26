@@ -39276,7 +39276,13 @@ function buildPoster(album) {
   poster.appendChild(cover);
   setAccentColor(cover);
   poster.appendChild(tracklist);
-  var titleFz = 100;
+  var titleFz = 120;
+  if (!checkWrap(title)) {
+    while (getWidth(document.querySelector('h1 span')) > getWidth(title)) {
+      titleFz--;
+      title.style.fontSize = titleFz + 'px';
+    }
+  }
   if (checkWrap(title)) {
     title.style.fontSize = '90px';
     titleFz = 90;

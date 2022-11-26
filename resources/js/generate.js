@@ -187,7 +187,14 @@ function buildPoster(album) {
 
     poster.appendChild(tracklist);
 
-    let titleFz = 100
+    let titleFz = 120;
+
+    if (!checkWrap(title)) {
+        while (getWidth(document.querySelector('h1 span')) > getWidth(title)) {
+            titleFz--;
+            title.style.fontSize = titleFz + 'px';
+        }
+    }
 
     if (checkWrap(title)) {
         title.style.fontSize = '90px';
