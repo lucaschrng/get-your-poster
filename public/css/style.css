@@ -149,7 +149,6 @@ html {
 }
 
 .poster-generate {
-  margin-top: -1728px;
   background-color: #1E1E1E;
 }
 .poster-generate > span {
@@ -160,21 +159,23 @@ html {
   width: -moz-fit-content;
   width: fit-content;
 }
-.poster-generate p {
-  font-size: 1.5rem;
-  font-weight: 600;
-  opacity: 0.8;
+.poster-generate .poster-img-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .poster-generate .poster-img {
-  margin: 0 auto;
-  height: 100vh;
   color: #ffffff;
   width: -moz-fit-content;
   width: fit-content;
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 0.5rem;
+}
+.poster-generate .poster-img p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0.8;
 }
 .poster-generate .poster-img .poster-preview-wrapper {
   display: flex;
@@ -182,38 +183,41 @@ html {
   align-items: center;
   gap: 0.5rem;
 }
-.poster-generate .poster-img .poster-preview {
-  background-color: #2F2F2F;
-  border: 1px solid rgba(255, 255, 255, 0.062745098);
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem 3.5rem 3rem 3.5rem;
-}
-.poster-generate .poster-img .poster-preview .preview-wrapper {
+.poster-generate .poster-img .preview-wrapper {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.062745098);
+  border-radius: 5px;
 }
-.poster-generate .poster-img .poster-preview .preview-wrapper .loader {
+.poster-generate .poster-img .preview-wrapper .loader-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(30, 30, 30, 0.4392156863);
+  z-index: 10;
+}
+.poster-generate .poster-img .preview-wrapper .loader {
   height: 50px;
   width: 50px;
   opacity: 0.4;
-  grid-column: 1;
-  grid-row: 1;
 }
-.poster-generate .poster-img .poster-preview .preview-wrapper .preview {
+.poster-generate .poster-img .preview-wrapper .preview {
   position: relative;
-  height: 300px;
-  width: 200px;
+  height: 540px;
+  width: 360px;
   grid-column: 1;
   grid-row: 1;
+  border-radius: 5px;
+  visibility: hidden;
 }
-.poster-generate .poster-img .poster-preview .preview-wrapper .preview::before {
+.poster-generate .poster-img .preview-wrapper .preview::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -223,6 +227,7 @@ html {
   align-items: center;
   background-color: #2F2F2F;
   color: rgba(255, 255, 255, 0.3764705882);
+  border-radius: 5px;
 }
 .poster-generate .poster-img .download {
   width: 100%;
@@ -240,58 +245,111 @@ html {
   color: rgba(255, 255, 255, 0.3764705882);
   margin-top: 1rem;
 }
-.poster-generate .options-panel {
+.poster-generate .options {
+  width: 360px;
+  height: -moz-min-content;
+  height: min-content;
   background-color: #2F2F2F;
   border: 1px solid rgba(255, 255, 255, 0.062745098);
   border-radius: 5px;
-  padding: 2rem;
+  padding: 2rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-.poster-generate .options-panel > p {
-  margin-bottom: 1rem;
-}
-.poster-generate .options-panel .option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-.poster-generate .options-panel .option input {
-  position: relative;
-  opacity: 1;
-  height: 1.5rem;
-  width: 1.5rem;
-  cursor: pointer;
-}
-.poster-generate .options-panel .option input::after {
-  content: "";
-  display: flex;
   justify-content: center;
   align-items: center;
+}
+.poster-generate .options .option-nav {
+  display: grid;
+  width: 100%;
+  align-items: center;
+}
+.poster-generate .options .option-nav > * {
+  grid-column: 1;
+  grid-row: 1;
+}
+.poster-generate .options .option-nav h2 {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.poster-generate .options .option-nav img {
+  height: 1.5rem;
+  width: 1.5rem;
+  filter: invert(1);
+  cursor: pointer;
+}
+.poster-generate .options .option {
+  position: relative;
+  padding: 0.6rem;
+  color: #ffffff;
+  font-weight: 400;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.poster-generate .options .option:nth-child(2) {
+  margin-top: 2rem;
+}
+.poster-generate .options .option:nth-child(2)::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 1px;
   width: 100%;
-  border-radius: 2px;
-  background-image: url(/img/cross.svg);
-  background-color: #9b9b9b;
-  filter: invert(1) brightness(70%);
+  background-color: rgba(255, 255, 255, 0.062745098);
 }
-.poster-generate .options-panel .option input:checked::after {
-  background-image: url(/img/checkmark.svg);
-  background-size: 90%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #c9940c;
-  filter: invert(1);
+.poster-generate .options .option::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.062745098);
+}
+.poster-generate .options .option p {
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+.poster-generate .options .option input {
+  display: none;
+}
+.poster-generate .options .option input:checked + .toggle {
+  background-color: rgba(63, 151, 255, 0.3764705882);
+}
+.poster-generate .options .option input:checked + .toggle::after {
+  translate: 1.1rem;
+}
+.poster-generate .options .option .toggle {
+  position: relative;
+  width: 2.6rem;
+  height: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.2509803922);
+  border: 1px solid rgba(255, 255, 255, 0.062745098);
+  border-radius: 500rem;
+  box-sizing: content-box;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.poster-generate .options .option .toggle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 5000px;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
 }
 
 .poster {
   color: var(--accent-color);
-  position: relative;
+  position: absolute;
   padding: 100px;
   width: 1152px;
   min-height: 1728px;
@@ -299,7 +357,9 @@ html {
   flex-direction: column;
   justify-content: space-between;
   gap: 4rem;
-  mix-blend-mode: multiply;
+  z-index: -1;
+  translate: 0 -100%;
+  background-color: #efefef;
 }
 .poster.invert {
   color: #ffffff;
@@ -319,10 +379,6 @@ html {
   -moz-column-gap: 0.5em;
        column-gap: 0.5em;
 }
-.poster img {
-  z-index: 2;
-  mix-blend-mode: multiply;
-}
 .poster ul {
   width: 100%;
   list-style: none;
@@ -341,13 +397,11 @@ html {
 .poster ul li .separator {
   width: 100%;
 }
-.poster:after {
-  content: "";
+.poster .overlay {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  mix-blend-mode: screen;
-  opacity: 0.1;
+  opacity: 0;
 }

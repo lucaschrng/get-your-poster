@@ -51,39 +51,54 @@ function getNewToken()
 <body class="poster-generate">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
     <span>.</span>
-    <div class="poster"></div>
+    <div class="poster"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
 
-    <div class="poster-img">
-        <div class="poster-preview-wrapper">
-            <div class="poster-preview">
-                <p>Preview</p>
+    <div class="poster-img-wrapper">
+        <div class="poster-img">
+            <div class="poster-preview-wrapper">
                 <div class="preview-wrapper">
                     <img class="preview" src="" alt="">
-                    <img class="loader" src="/img/loading.gif" alt="">
+                    <div class="loader-wrapper">
+                        <img class="loader" src="/img/loading.gif" alt="">
+                    </div>
                 </div>
+                <a class="download" href="">Download</a>
+                <a class="new-poster" href="/">Make another poster →</a>
             </div>
-            <a class="download" href="">Download</a>
-            <a class="new-poster" href="/">Make another poster →</a>
+            <div class="options">
+                <div class="option-nav">
+                    <h2>Options</h2>
+                    <img src="/img/chevron.svg" alt="">
+                </div>
+                <div class="option">
+                    <p>Inverted colors</p>
+                    <input type="checkbox" name="invert" id="invert">
+                    <label class="toggle invert" for="invert"></label>
+                </div>
+                <div class="option">
+                    <p>Justified title</p>
+                    <input type="checkbox" name="justify" id="justify">
+                    <label class="toggle justify" for="justify"></label>
+                </div>
+                <div class="option">
+                    <p>Folded texture</p>
+                    <input type="checkbox" name="folded" id="folded">
+                    <label class="toggle folded" for="folded"></label>
+                </div>
+                <div class="option">
+                    <p>Track duration</p>
+                    <input type="checkbox" name="duration" id="duration">
+                    <label class="toggle duration" for="duration"></label>
+                </div>
+                <!-- <div class="option">
+                    <p>Custom accent color</p>
+                    <div class="toggle"><input type="color" name="accent-color"></div>
+                </div>
+                <div class="custom-image-option">
+                    <p>Drag and drop,<br>or <span class="file-select">select file</span></p>
+                </div> -->
+            </div>
         </div>
-        <!-- <div class="options-panel">
-            <p>Options</p>
-            <div class="option">
-                <label for="invert-button">Invert text and background colors</label>
-                <input type="checkbox" id="invert-button" class="invert-button">
-            </div>
-            <div class="option">
-                <label for="justify-button">Justify title</label>
-                <input type="checkbox" id="justify-button" class="justify-button">
-            </div>
-            <div class="option">
-                <label for="image-button">Add custom image</label>
-                <input type="file" id="image-button" name="image-button" accept="image/png, image/jpeg">
-            </div>
-            <div class="option">
-                <label for="color-button">Choose custom color</label>
-                <input type="color" id="color-button" name="color-button">
-            </div>
-        </div> -->
     </div>
     <script src="/js/generate.js" defer></script>
 </body>
