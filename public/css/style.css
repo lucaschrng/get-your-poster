@@ -229,21 +229,11 @@ html {
   color: rgba(255, 255, 255, 0.3764705882);
   border-radius: 5px;
 }
-.poster-generate .poster-img .download {
-  width: 100%;
-  color: rgba(255, 255, 255, 0.1254901961);
-  text-decoration: none;
-  font-weight: 600;
-  background-color: #2F2F2F;
-  border: 1px solid rgba(255, 255, 255, 0.062745098);
-  border-radius: 5px;
-  padding: 1rem;
-  text-align: center;
-  z-index: -1;
-}
-.poster-generate .poster-img .new-poster {
-  color: rgba(255, 255, 255, 0.3764705882);
-  margin-top: 1rem;
+.poster-generate .right-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 .poster-generate .options {
   width: 360px;
@@ -291,7 +281,7 @@ html {
   justify-content: space-between;
 }
 .poster-generate .options .option:nth-child(2) {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 .poster-generate .options .option:nth-child(2)::before {
   content: "";
@@ -346,6 +336,22 @@ html {
   background-color: #ffffff;
   transition: all 0.15s ease;
 }
+.poster-generate .download {
+  width: 100%;
+  color: rgba(255, 255, 255, 0.1254901961);
+  text-decoration: none;
+  font-weight: 600;
+  background-color: #2F2F2F;
+  border: 1px solid rgba(255, 255, 255, 0.062745098);
+  border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+  z-index: -1;
+}
+.poster-generate .new-poster {
+  color: rgba(255, 255, 255, 0.3764705882);
+  margin-top: 1rem;
+}
 
 .poster {
   color: var(--accent-color);
@@ -359,11 +365,29 @@ html {
   gap: 4rem;
   z-index: -1;
   translate: 0 -100%;
-  background-color: #efefef;
+  background-color: #ffffff;
 }
 .poster.invert {
   color: #ffffff;
   background-color: var(--accent-color);
+}
+.poster.hidden-title h1 {
+  display: none;
+}
+.poster.hidden-artist h2 {
+  display: none;
+}
+.poster.hidden-tracks ul {
+  display: none;
+}
+.poster.hidden-title.hidden-artist {
+  justify-content: center;
+}
+.poster.hidden-title.hidden-artist > div {
+  display: none;
+}
+.poster.hidden-tracks {
+  justify-content: center;
 }
 .poster h2 {
   font-size: 48px;
@@ -385,8 +409,8 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
-  -moz-column-gap: 24px;
-       column-gap: 24px;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 .poster ul li {
   font-weight: 600;

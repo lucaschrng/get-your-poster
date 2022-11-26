@@ -48,7 +48,7 @@ function getNewToken()
     <title>Get Your Poster</title>
 </head>
 
-<body class="poster-generate">
+<body class="poster-generate hidden-title">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
     <span>.</span>
     <div class="poster"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
@@ -62,41 +62,58 @@ function getNewToken()
                         <img class="loader" src="/img/loading.gif" alt="">
                     </div>
                 </div>
+            </div>
+            <div class="right-panel">
+                <div class="options">
+                    <div class="option-nav">
+                        <h2>Options</h2>
+                        <!-- <img src="/img/chevron.svg" alt=""> -->
+                    </div>
+                    <div class="option">
+                        <p>Inverted colors</p>
+                        <input type="checkbox" name="invert" id="invert">
+                        <label class="toggle invert" for="invert"></label>
+                    </div>
+                    <div class="option">
+                        <p>Justified title</p>
+                        <input type="checkbox" name="justify" id="justify">
+                        <label class="toggle justify" for="justify"></label>
+                    </div>
+                    <div class="option">
+                        <p>Folded texture</p>
+                        <input type="checkbox" name="folded" id="folded">
+                        <label class="toggle folded" for="folded"></label>
+                    </div>
+                    <div class="option">
+                        <p>Hidden artist</p>
+                        <input type="checkbox" name="hidden-artist" id="hidden-artist">
+                        <label class="toggle hidden-artist" for="hidden-artist"></label>
+                    </div>
+                    <div class="option">
+                        <p>Hidden title</p>
+                        <input type="checkbox" name="hidden-title" id="hidden-title">
+                        <label class="toggle hidden-title" for="hidden-title"></label>
+                    </div>
+                    <div class="option">
+                        <p>Hidden tracks</p>
+                        <input type="checkbox" name="hidden-tracks" id="hidden-tracks">
+                        <label class="toggle hidden-tracks" for="hidden-tracks"></label>
+                    </div>
+                    <div class="option">
+                        <p>Track duration</p>
+                        <input type="checkbox" name="duration" id="duration">
+                        <label class="toggle duration" for="duration"></label>
+                    </div>
+                    <!-- <div class="option">
+                        <p>Custom accent color</p>
+                        <div class="toggle"><input type="color" name="accent-color"></div>
+                    </div>
+                    <div class="custom-image-option">
+                        <p>Drag and drop,<br>or <span class="file-select">select file</span></p>
+                    </div> -->
+                </div>
                 <a class="download" href="">Download</a>
                 <a class="new-poster" href="/">Make another poster →</a>
-            </div>
-            <div class="options">
-                <div class="option-nav">
-                    <h2>Options</h2>
-                    <img src="/img/chevron.svg" alt="">
-                </div>
-                <div class="option">
-                    <p>Inverted colors</p>
-                    <input type="checkbox" name="invert" id="invert">
-                    <label class="toggle invert" for="invert"></label>
-                </div>
-                <div class="option">
-                    <p>Justified title</p>
-                    <input type="checkbox" name="justify" id="justify">
-                    <label class="toggle justify" for="justify"></label>
-                </div>
-                <div class="option">
-                    <p>Folded texture</p>
-                    <input type="checkbox" name="folded" id="folded">
-                    <label class="toggle folded" for="folded"></label>
-                </div>
-                <div class="option">
-                    <p>Track duration</p>
-                    <input type="checkbox" name="duration" id="duration">
-                    <label class="toggle duration" for="duration"></label>
-                </div>
-                <!-- <div class="option">
-                    <p>Custom accent color</p>
-                    <div class="toggle"><input type="color" name="accent-color"></div>
-                </div>
-                <div class="custom-image-option">
-                    <p>Drag and drop,<br>or <span class="file-select">select file</span></p>
-                </div> -->
             </div>
         </div>
     </div>

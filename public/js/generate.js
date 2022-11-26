@@ -39140,6 +39140,12 @@ var foldedToggle = document.querySelector('.toggle.folded');
 var isFolded = false;
 var durationToggle = document.querySelector('.toggle.duration');
 var isDuration = false;
+var artistToggle = document.querySelector('.toggle.hidden-artist');
+var isHiddenArtist = false;
+var titleToggle = document.querySelector('.toggle.hidden-title');
+var isHiddenTitle = false;
+var tracksToggle = document.querySelector('.toggle.hidden-tracks');
+var isHiddenTracks = false;
 var fz = '27px';
 var posterArr;
 var textureArr;
@@ -39164,6 +39170,36 @@ justifyToggle.addEventListener('mousedown', function () {
 foldedToggle.addEventListener('mousedown', function () {
   isFolded = !isFolded;
   fastRender();
+});
+artistToggle.addEventListener('mousedown', function () {
+  isHiddenArtist = !isHiddenArtist;
+  if (isHiddenArtist) {
+    poster.classList.add('hidden-artist');
+  } else {
+    poster.classList.remove('hidden-artist');
+  }
+  fastRender();
+});
+titleToggle.addEventListener('mousedown', function () {
+  isHiddenTitle = !isHiddenTitle;
+  if (isHiddenTitle) {
+    poster.classList.add('hidden-title');
+  } else {
+    poster.classList.remove('hidden-title');
+  }
+  fastRender();
+});
+tracksToggle.addEventListener('mousedown', function () {
+  isHiddenTracks = !isHiddenTracks;
+  if (isHiddenTracks) {
+    poster.classList.add('hidden-tracks');
+  } else {
+    poster.classList.remove('hidden-tracks');
+  }
+  fastRender();
+});
+preview.addEventListener('load', function () {
+  preview.style.height = -Math.floor(getHeight(poster) * 360 / 1152) + 'px';
 });
 getAndBuild();
 function getAndBuild() {
@@ -39291,12 +39327,6 @@ function buildPoster(album) {
       downloadBtn.style.color = '#ffffff';
     });
   }, 500);
-  cover.addEventListener('load', function () {
-    console.log('hey');
-    if (getHeight(poster) < -1728) {
-      preview.style.height = -Math.floor(getHeight(poster) * 360 / 1152) + 'px';
-    }
-  });
 }
 function removeMention(string, mention) {
   var content = '';
@@ -39381,7 +39411,6 @@ function setAccentColor(imgNode) {
   imgNode.setAttribute('crossOrigin', '');
   Vibrant.from(imgNode).getPalette().then(function (palette) {
     var vibrantColor = palette.Vibrant._rgb;
-    console.log(vibrantColor);
     document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
   });
 }

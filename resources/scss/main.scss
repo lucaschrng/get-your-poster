@@ -244,24 +244,13 @@ html{
                 }
             }
         }
+    }
 
-        .download {
-            width: 100%;
-            color: #ffffff20;
-            text-decoration: none;
-            font-weight: 600;
-            background-color: #2F2F2F;
-            border: 1px solid #ffffff10;
-            border-radius: 5px;
-            padding: 1rem;
-            text-align: center;
-            z-index: -1;
-        }
-
-        .new-poster {
-            color: #ffffff60;
-            margin-top: 1rem;
-        }
+    .right-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
     }
 
     .options {
@@ -313,7 +302,7 @@ html{
             justify-content: space-between;
 
             &:nth-child(2) {
-                margin-top: 2rem;
+                margin-top: 1.5rem;
 
                 &::before{
                     content: '';
@@ -380,6 +369,24 @@ html{
             }
         }
     }
+
+    .download {
+        width: 100%;
+        color: #ffffff20;
+        text-decoration: none;
+        font-weight: 600;
+        background-color: #2F2F2F;
+        border: 1px solid #ffffff10;
+        border-radius: 5px;
+        padding: 1rem;
+        text-align: center;
+        z-index: -1;
+    }
+
+    .new-poster {
+        color: #ffffff60;
+        margin-top: 1rem;
+    }
 }
 
 .poster {
@@ -394,11 +401,40 @@ html{
     gap: 4rem;
     z-index: -1;
     translate: 0 -100%;
-    background-color: #efefef;
+    background-color: #ffffff;
 
     &.invert {
         color: #ffffff;
         background-color: var(--accent-color);
+    }
+
+    &.hidden-title {
+        h1 {
+            display: none;
+        }
+    }
+
+    &.hidden-artist {
+        h2 {
+            display: none;
+        }
+    }
+
+    &.hidden-tracks {
+        ul {
+            display: none;
+        }
+    }
+
+    &.hidden-title.hidden-artist {
+        justify-content: center;
+        > div {
+            display: none;
+        }
+    }
+
+    &.hidden-tracks {
+        justify-content: center;
     }
 
     h2 {
@@ -422,7 +458,7 @@ html{
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-auto-flow: column;
-        column-gap: 24px;
+        column-gap: 2rem;
 
 
         li {

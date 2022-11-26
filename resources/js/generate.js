@@ -18,6 +18,12 @@ let foldedToggle = document.querySelector('.toggle.folded');
 let isFolded = false;
 let durationToggle = document.querySelector('.toggle.duration');
 let isDuration = false;
+let artistToggle = document.querySelector('.toggle.hidden-artist');
+let isHiddenArtist = false;
+let titleToggle = document.querySelector('.toggle.hidden-title');
+let isHiddenTitle = false;
+let tracksToggle = document.querySelector('.toggle.hidden-tracks');
+let isHiddenTracks = false;
 let fz = '27px';
 let posterArr;
 let textureArr;
@@ -45,6 +51,40 @@ justifyToggle.addEventListener('mousedown', () => {
 foldedToggle.addEventListener('mousedown', () => {
     isFolded = !isFolded;
     fastRender();
+})
+
+artistToggle.addEventListener('mousedown', () => {
+    isHiddenArtist = !isHiddenArtist;
+    if (isHiddenArtist) {
+        poster.classList.add('hidden-artist');
+    } else {
+        poster.classList.remove('hidden-artist');
+    }
+    fastRender();
+})
+
+titleToggle.addEventListener('mousedown', () => {
+    isHiddenTitle = !isHiddenTitle;
+    if (isHiddenTitle) {
+        poster.classList.add('hidden-title');
+    } else {
+        poster.classList.remove('hidden-title');
+    }
+    fastRender();
+})
+
+tracksToggle.addEventListener('mousedown', () => {
+    isHiddenTracks = !isHiddenTracks;
+    if (isHiddenTracks) {
+        poster.classList.add('hidden-tracks');
+    } else {
+        poster.classList.remove('hidden-tracks');
+    }
+    fastRender();
+})
+
+preview.addEventListener('load', () => {
+    preview.style.height = -Math.floor((getHeight(poster) * 360) / 1152) + 'px';
 })
 
 getAndBuild();
@@ -208,13 +248,6 @@ function buildPoster(album) {
             downloadBtn.style.color = '#ffffff';
         })
     }, 500);
-
-    cover.addEventListener('load', () => {
-        console.log('hey');
-        if (getHeight(poster) < -1728) {
-            preview.style.height = -Math.floor((getHeight(poster) * 360) / 1152) + 'px';
-        }
-    })
 }
 
 function removeMention(string, mention) {
@@ -311,7 +344,6 @@ function setAccentColor(imgNode) {
     imgNode.setAttribute('crossOrigin', '');
     Vibrant.from(imgNode).getPalette().then(function(palette) {
         let vibrantColor = palette.Vibrant._rgb;
-        console.log(vibrantColor);
         document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
     });
 }
