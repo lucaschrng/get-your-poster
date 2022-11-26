@@ -153,7 +153,6 @@ html{
 }
 
 .poster-generate {
-    // margin-top: -1728px;
     background-color: #1E1E1E;
 
     > span {
@@ -162,6 +161,7 @@ html{
         font-weight: 600;
         z-index: -10;
         width: fit-content;
+        opacity: 0;
     }
 
     .poster-img-wrapper {
@@ -175,7 +175,11 @@ html{
         color: #ffffff;
         width: fit-content;
         display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 0.5rem;
+        padding: 6rem 0;
+        max-height: 100vh;
 
         p {
             font-size: 1.5rem;
@@ -385,7 +389,7 @@ html{
 
     .new-poster {
         color: #ffffff60;
-        margin-top: 1rem;
+        margin: 1rem 0 5rem 0;
     }
 }
 

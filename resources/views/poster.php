@@ -51,7 +51,7 @@ function getNewToken()
 <body class="poster-generate hidden-title">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
     <span>.</span>
-    <div class="poster"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
+    <div class="poster invert"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
 
     <div class="poster-img-wrapper">
         <div class="poster-img">
@@ -67,35 +67,34 @@ function getNewToken()
                 <div class="options">
                     <div class="option-nav">
                         <h2>Options</h2>
-                        <!-- <img src="/img/chevron.svg" alt=""> -->
                     </div>
                     <div class="option">
-                        <p>Inverted colors</p>
-                        <input type="checkbox" name="invert" id="invert">
+                        <p>Invert colors</p>
+                        <input type="checkbox" name="invert" id="invert" checked>
                         <label class="toggle invert" for="invert"></label>
                     </div>
                     <div class="option">
-                        <p>Justified title</p>
+                        <p>Justify title</p>
                         <input type="checkbox" name="justify" id="justify">
                         <label class="toggle justify" for="justify"></label>
                     </div>
                     <div class="option">
                         <p>Folded texture</p>
-                        <input type="checkbox" name="folded" id="folded">
+                        <input type="checkbox" name="folded" id="folded" checked>
                         <label class="toggle folded" for="folded"></label>
                     </div>
                     <div class="option">
-                        <p>Hidden artist</p>
+                        <p>Hide artist</p>
                         <input type="checkbox" name="hidden-artist" id="hidden-artist">
                         <label class="toggle hidden-artist" for="hidden-artist"></label>
                     </div>
                     <div class="option">
-                        <p>Hidden title</p>
+                        <p>Hide title</p>
                         <input type="checkbox" name="hidden-title" id="hidden-title">
                         <label class="toggle hidden-title" for="hidden-title"></label>
                     </div>
                     <div class="option">
-                        <p>Hidden tracks</p>
+                        <p>Hide tracks</p>
                         <input type="checkbox" name="hidden-tracks" id="hidden-tracks">
                         <label class="toggle hidden-tracks" for="hidden-tracks"></label>
                     </div>

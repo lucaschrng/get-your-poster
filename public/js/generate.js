@@ -39133,11 +39133,11 @@ var preview = document.querySelector('.preview');
 var loader = document.querySelector('.loader-wrapper');
 var span = document.querySelector('.poster-generate > span');
 var invertToggle = document.querySelector('.toggle.invert');
-var isInvert = false;
+var isInvert = true;
 var justifyToggle = document.querySelector('.toggle.justify');
 var isJustify = false;
 var foldedToggle = document.querySelector('.toggle.folded');
-var isFolded = false;
+var isFolded = true;
 var durationToggle = document.querySelector('.toggle.duration');
 var isDuration = false;
 var artistToggle = document.querySelector('.toggle.hidden-artist');
@@ -39313,20 +39313,9 @@ function buildPoster(album) {
   });
   setTimeout(function () {
     window.scrollTo(0, 0);
-    html2canvas(document.querySelector(".poster"), {
-      allowTaint: true,
-      useCORS: true,
-      scale: Math.min(window.devicePixelRatio, 2)
-    }).then(function (canvas) {
-      loader.style.display = 'none';
-      preview.src = canvas.toDataURL("image/png", 1.0);
-      preview.style.visibility = 'visible';
-      downloadBtn.href = canvas.toDataURL("image/png", 1.0);
-      downloadBtn.download = albumArtistTitle.replaceAll('.', '').replaceAll(',', '-').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
-      downloadBtn.style.zIndex = 1;
-      downloadBtn.style.color = '#ffffff';
-    });
+    fastRender();
   }, 500);
+  downloadBtn.download = albumArtistTitle.replaceAll('.', '').replaceAll(',', '-').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
 }
 function removeMention(string, mention) {
   var content = '';
@@ -39429,6 +39418,7 @@ function fastRender() {
       renderTexture();
     } else {
       loader.style.display = 'none';
+      preview.style.visibility = 'visible';
       preview.src = canvas.toDataURL("image/png", 1.0);
       downloadBtn.href = canvas.toDataURL("image/png", 1.0);
       downloadBtn.style.zIndex = 1;
@@ -39445,6 +39435,7 @@ function renderTexture() {
   }).then(function (canvas) {
     textureArr = canvas.getContext('2d').getImageData(0, -getHeight(poster) * Math.min(window.devicePixelRatio, 2), getWidth(poster) * Math.min(window.devicePixelRatio, 2), getHeight(poster) * Math.min(window.devicePixelRatio, 2)).data;
     loader.style.display = 'none';
+    preview.style.visibility = 'visible';
     var imgUrl = applyBlend(textureArr, posterArr);
     preview.src = imgUrl;
     downloadBtn.href = imgUrl;

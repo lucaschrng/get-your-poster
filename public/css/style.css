@@ -158,6 +158,7 @@ html {
   z-index: -10;
   width: -moz-fit-content;
   width: fit-content;
+  opacity: 0;
 }
 .poster-generate .poster-img-wrapper {
   height: 100vh;
@@ -170,7 +171,11 @@ html {
   width: -moz-fit-content;
   width: fit-content;
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
+  padding: 6rem 0;
+  max-height: 100vh;
 }
 .poster-generate .poster-img p {
   font-size: 1.5rem;
@@ -350,7 +355,7 @@ html {
 }
 .poster-generate .new-poster {
   color: rgba(255, 255, 255, 0.3764705882);
-  margin-top: 1rem;
+  margin: 1rem 0 5rem 0;
 }
 
 .poster {
