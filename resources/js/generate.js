@@ -383,6 +383,7 @@ function fastRender() {
 
 function renderTexture() {
     document.querySelector('.overlay').style.opacity = 1;
+    document.querySelector('.overlay').style.translate = ((getWidth(document.querySelector('.overlay')) - getWidth(poster))/ -2) + 'px 0';
     html2canvas(document.querySelector(".poster"), {
         allowTaint: true, 
         useCORS: true,
