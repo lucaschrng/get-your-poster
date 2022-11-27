@@ -223,7 +223,7 @@ html{
 
             .preview {
                 position: relative;
-                height: 540px;
+                min-height: 540px;
                 width: 360px;
                 grid-column: 1;
                 grid-row: 1;
@@ -441,6 +441,12 @@ html{
         justify-content: center;
     }
 
+    &.wallpaper {
+        justify-content: center;
+        min-height: 2496px;
+        padding-top: 500px;
+    }
+
     h2 {
         font-size: 48px;
     }
@@ -484,5 +490,19 @@ html{
         height: 100%;
         width: 100%;
         opacity: 0;
+    }
+
+    &.texture {
+        div {
+            display: none;
+
+            + img {
+                display: none;
+            }
+        }
+
+        ul {
+            display: none;
+        }
     }
 }

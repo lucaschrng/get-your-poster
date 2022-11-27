@@ -39146,6 +39146,8 @@ var titleToggle = document.querySelector('.toggle.hidden-title');
 var isHiddenTitle = false;
 var tracksToggle = document.querySelector('.toggle.hidden-tracks');
 var isHiddenTracks = false;
+var wallpaperToggle = document.querySelector('.toggle.wallpaper');
+var isWallpaper = false;
 var fz = '27px';
 var posterArr;
 var textureArr;
@@ -39198,8 +39200,17 @@ tracksToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
+wallpaperToggle.addEventListener('mousedown', function () {
+  isWallpaper = !isWallpaper;
+  if (isWallpaper) {
+    poster.classList.add('wallpaper');
+  } else {
+    poster.classList.remove('wallpaper');
+  }
+  fastRender();
+});
 preview.addEventListener('load', function () {
-  preview.style.height = -Math.floor(getHeight(poster) * 360 / 1152) + 'px';
+  preview.style.height = 'auto';
 });
 getAndBuild();
 function getAndBuild() {

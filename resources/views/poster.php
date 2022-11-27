@@ -51,7 +51,9 @@ function getNewToken()
 <body class="poster-generate hidden-title">
     <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
     <span>.</span>
-    <div class="poster invert"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
+    <div class="poster-wrapper">
+        <div class="poster invert"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
+    </div>
 
     <div class="poster-img-wrapper">
         <div class="poster-img">
@@ -102,6 +104,11 @@ function getNewToken()
                         <p>Track duration</p>
                         <input type="checkbox" name="duration" id="duration">
                         <label class="toggle duration" for="duration"></label>
+                    </div>
+                    <div class="option">
+                        <p>Wallpaper size</p>
+                        <input type="checkbox" name="wallpaper" id="wallpaper">
+                        <label class="toggle wallpaper" for="wallpaper"></label>
                     </div>
                     <!-- <div class="option">
                         <p>Custom accent color</p>

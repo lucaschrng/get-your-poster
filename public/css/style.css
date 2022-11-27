@@ -215,7 +215,7 @@ html {
 }
 .poster-generate .poster-img .preview-wrapper .preview {
   position: relative;
-  height: 540px;
+  min-height: 540px;
   width: 360px;
   grid-column: 1;
   grid-row: 1;
@@ -394,6 +394,11 @@ html {
 .poster.hidden-tracks {
   justify-content: center;
 }
+.poster.wallpaper {
+  justify-content: center;
+  min-height: 2496px;
+  padding-top: 500px;
+}
 .poster h2 {
   font-size: 48px;
 }
@@ -433,4 +438,13 @@ html {
   height: 100%;
   width: 100%;
   opacity: 0;
+}
+.poster.texture div {
+  display: none;
+}
+.poster.texture div + img {
+  display: none;
+}
+.poster.texture ul {
+  display: none;
 }

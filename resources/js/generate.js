@@ -24,6 +24,8 @@ let titleToggle = document.querySelector('.toggle.hidden-title');
 let isHiddenTitle = false;
 let tracksToggle = document.querySelector('.toggle.hidden-tracks');
 let isHiddenTracks = false;
+let wallpaperToggle = document.querySelector('.toggle.wallpaper');
+let isWallpaper = false;
 let fz = '27px';
 let posterArr;
 let textureArr;
@@ -83,8 +85,18 @@ tracksToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
+wallpaperToggle.addEventListener('mousedown', () => {
+    isWallpaper = !isWallpaper;
+    if (isWallpaper) {
+        poster.classList.add('wallpaper');
+    } else {
+        poster.classList.remove('wallpaper');
+    }
+    fastRender();
+})
+
 preview.addEventListener('load', () => {
-    preview.style.height = -Math.floor((getHeight(poster) * 360) / 1152) + 'px';
+    preview.style.height = 'auto';
 })
 
 getAndBuild();
