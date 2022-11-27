@@ -135,6 +135,7 @@ html {
   width: 100%;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.062745098);
+  transition: all 0.1s ease;
 }
 .home .results a * h2 {
   font-weight: 600;
@@ -146,6 +147,9 @@ html {
   font-size: 1rem;
   opacity: 0.8;
   z-index: -10;
+}
+.home .results a:hover img {
+  filter: brightness(80%);
 }
 
 .poster-generate {

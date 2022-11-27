@@ -134,7 +134,8 @@ html{
                 width: 100%;
                 border-radius: 5px;
                 border: 1px solid #ffffff10;
-            }*
+                transition: all 0.1s ease;
+            }
 
             h2 {
                 font-weight: 600;
@@ -147,6 +148,10 @@ html{
                 font-size: 1rem;
                 opacity: 0.8;
                 z-index: -10;
+            }
+
+            &:hover img{
+                filter: brightness(80%);
             }
         }
     }
