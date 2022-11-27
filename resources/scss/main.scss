@@ -263,7 +263,7 @@ html{
         background-color: #2F2F2F;
         border: 1px solid #ffffff10;
         border-radius: 5px;
-        padding: 2rem 1rem 1rem 1rem;
+        padding: 0.1rem 1rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -304,25 +304,26 @@ html{
             width: 100%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
-            &:nth-child(2) {
-                margin-top: 1.5rem;
+            // &:nth-child(2) {
+            //     margin-top: 1.5rem;
 
-                &::before{
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 1px;
-                    width: 100%;
-                    background-color: #ffffff10;
-                }
-            }
+            //     &::before{
+            //         content: '';
+            //         position: absolute;
+            //         top: 0;
+            //         left: 0;
+            //         height: 1px;
+            //         width: 100%;
+            //         background-color: #ffffff10;
+            //     }
+            // }
 
-            &::after {
+            + .option::after {
                 content: '';
                 position: absolute;
-                bottom: 0;
+                top: 0;
                 left: 0;
                 height: 1px;
                 width: 100%;
@@ -332,6 +333,13 @@ html{
             p {
                 font-weight: 400;
                 font-size: 1.2rem;
+
+                span {
+                    font-size: 0.8rem;
+                    line-height: 0.8rem;
+                    opacity: 0.7;
+                    display: none;
+                }
             }
 
             input {
@@ -370,6 +378,12 @@ html{
                     background-color: #ffffff;
                     transition: all 0.15s ease;
                 }
+            }
+        }
+
+        &.wallpaper {
+            p span {
+                display: block;
             }
         }
     }

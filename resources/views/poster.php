@@ -67,18 +67,13 @@ function getNewToken()
             </div>
             <div class="right-panel">
                 <div class="options">
-                    <div class="option-nav">
+                    <!-- <div class="option-nav">
                         <h2>Options</h2>
-                    </div>
+                    </div> -->
                     <div class="option">
                         <p>Invert colors</p>
                         <input type="checkbox" name="invert" id="invert" checked>
                         <label class="toggle invert" for="invert"></label>
-                    </div>
-                    <div class="option">
-                        <p>Justify title</p>
-                        <input type="checkbox" name="justify" id="justify">
-                        <label class="toggle justify" for="justify"></label>
                     </div>
                     <div class="option">
                         <p>Folded texture</p>
@@ -86,12 +81,22 @@ function getNewToken()
                         <label class="toggle folded" for="folded"></label>
                     </div>
                     <div class="option">
-                        <p>Hide artist</p>
+                        <p>Wallpaper size</p>
+                        <input type="checkbox" name="wallpaper" id="wallpaper">
+                        <label class="toggle wallpaper" for="wallpaper"></label>
+                    </div>
+                    <div class="option">
+                        <p>Justify title</p>
+                        <input type="checkbox" name="justify" id="justify">
+                        <label class="toggle justify" for="justify"></label>
+                    </div>
+                    <div class="option">
+                        <p>Hide artist<span>Recommended on with wallpaper size</span></p>
                         <input type="checkbox" name="hidden-artist" id="hidden-artist">
                         <label class="toggle hidden-artist" for="hidden-artist"></label>
                     </div>
                     <div class="option">
-                        <p>Hide title</p>
+                        <p>Hide title<span>Recommended on with wallpaper size</span></p>
                         <input type="checkbox" name="hidden-title" id="hidden-title">
                         <label class="toggle hidden-title" for="hidden-title"></label>
                     </div>
@@ -99,16 +104,6 @@ function getNewToken()
                         <p>Hide tracks</p>
                         <input type="checkbox" name="hidden-tracks" id="hidden-tracks">
                         <label class="toggle hidden-tracks" for="hidden-tracks"></label>
-                    </div>
-                    <div class="option">
-                        <p>Track duration</p>
-                        <input type="checkbox" name="duration" id="duration">
-                        <label class="toggle duration" for="duration"></label>
-                    </div>
-                    <div class="option">
-                        <p>Wallpaper size</p>
-                        <input type="checkbox" name="wallpaper" id="wallpaper">
-                        <label class="toggle wallpaper" for="wallpaper"></label>
                     </div>
                     <!-- <div class="option">
                         <p>Custom accent color</p>

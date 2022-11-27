@@ -247,7 +247,7 @@ html {
   background-color: #2F2F2F;
   border: 1px solid rgba(255, 255, 255, 0.062745098);
   border-radius: 5px;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 0.1rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -284,11 +284,9 @@ html {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.poster-generate .options .option:nth-child(2) {
-  margin-top: 1.5rem;
-}
-.poster-generate .options .option:nth-child(2)::before {
+.poster-generate .options .option + .option::after {
   content: "";
   position: absolute;
   top: 0;
@@ -297,18 +295,15 @@ html {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.062745098);
 }
-.poster-generate .options .option::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.062745098);
-}
 .poster-generate .options .option p {
   font-weight: 400;
   font-size: 1.2rem;
+}
+.poster-generate .options .option p span {
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  opacity: 0.7;
+  display: none;
 }
 .poster-generate .options .option input {
   display: none;
@@ -340,6 +335,9 @@ html {
   border-radius: 5000px;
   background-color: #ffffff;
   transition: all 0.15s ease;
+}
+.poster-generate .options.wallpaper p span {
+  display: block;
 }
 .poster-generate .download {
   width: 100%;

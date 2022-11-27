@@ -16,8 +16,6 @@ let justifyToggle = document.querySelector('.toggle.justify');
 let isJustify = false;
 let foldedToggle = document.querySelector('.toggle.folded');
 let isFolded = true;
-let durationToggle = document.querySelector('.toggle.duration');
-let isDuration = false;
 let artistToggle = document.querySelector('.toggle.hidden-artist');
 let isHiddenArtist = false;
 let titleToggle = document.querySelector('.toggle.hidden-title');
@@ -26,6 +24,7 @@ let tracksToggle = document.querySelector('.toggle.hidden-tracks');
 let isHiddenTracks = false;
 let wallpaperToggle = document.querySelector('.toggle.wallpaper');
 let isWallpaper = false;
+let optionPanel = document.querySelector('.options');
 let fz = '27px';
 let posterArr;
 let textureArr;
@@ -89,8 +88,10 @@ wallpaperToggle.addEventListener('mousedown', () => {
     isWallpaper = !isWallpaper;
     if (isWallpaper) {
         poster.classList.add('wallpaper');
+        optionPanel.classList.add('wallpaper');
     } else {
         poster.classList.remove('wallpaper');
+        optionPanel.classList.remove('wallpaper');
     }
     fastRender();
 })

@@ -39138,8 +39138,6 @@ var justifyToggle = document.querySelector('.toggle.justify');
 var isJustify = false;
 var foldedToggle = document.querySelector('.toggle.folded');
 var isFolded = true;
-var durationToggle = document.querySelector('.toggle.duration');
-var isDuration = false;
 var artistToggle = document.querySelector('.toggle.hidden-artist');
 var isHiddenArtist = false;
 var titleToggle = document.querySelector('.toggle.hidden-title');
@@ -39148,6 +39146,7 @@ var tracksToggle = document.querySelector('.toggle.hidden-tracks');
 var isHiddenTracks = false;
 var wallpaperToggle = document.querySelector('.toggle.wallpaper');
 var isWallpaper = false;
+var optionPanel = document.querySelector('.options');
 var fz = '27px';
 var posterArr;
 var textureArr;
@@ -39204,8 +39203,10 @@ wallpaperToggle.addEventListener('mousedown', function () {
   isWallpaper = !isWallpaper;
   if (isWallpaper) {
     poster.classList.add('wallpaper');
+    optionPanel.classList.add('wallpaper');
   } else {
     poster.classList.remove('wallpaper');
+    optionPanel.classList.remove('wallpaper');
   }
   fastRender();
 });
