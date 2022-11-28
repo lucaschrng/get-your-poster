@@ -39147,6 +39147,7 @@ var isHiddenTracks = false;
 var wallpaperToggle = document.querySelector('#wallpaper');
 var isWallpaper = false;
 var optionPanel = document.querySelector('.options');
+var colorPicker = document.querySelector('#custom-color');
 var fz = '27px';
 var posterArr;
 var textureArr;
@@ -39212,6 +39213,10 @@ wallpaperToggle.addEventListener('change', function () {
 });
 preview.addEventListener('load', function () {
   preview.style.height = 'auto';
+});
+colorPicker.addEventListener('change', function () {
+  updateColor(colorPicker.value);
+  fastRender();
 });
 getAndBuild();
 function getAndBuild() {
@@ -39418,6 +39423,7 @@ function setAccentColor(imgNode) {
   imgNode.setAttribute('crossOrigin', '');
   Vibrant.from(imgNode).getPalette().then(function (palette) {
     var vibrantColor = palette.Vibrant._rgb;
+    colorPicker.value = palette.Vibrant.hex;
     document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
   });
 }
@@ -39475,6 +39481,9 @@ function applyBlend(arr1, arr2) {
     resultArr.push(arr1[i + 3]);
   }
   return getDataUrlFromArr(resultArr, getWidth(poster) * Math.min(window.devicePixelRatio, 2), -getHeight(poster) * Math.min(window.devicePixelRatio, 2));
+}
+function updateColor(hex) {
+  document.documentElement.style.setProperty('--accent-color', hex);
 }
 })();
 

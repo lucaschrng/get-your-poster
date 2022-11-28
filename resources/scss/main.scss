@@ -336,9 +336,11 @@ html{
                 background-color: #ffffff10;
             }
 
-            p {
+            label {
                 font-weight: 400;
                 font-size: 1.2rem;
+                width: 100%;
+                cursor: pointer;
 
                 span {
                     font-size: 0.8rem;
@@ -351,7 +353,7 @@ html{
             input {
                 position: relative;
                 height: 1.5rem;
-                width: 2.6rem;
+                min-width: 2.6rem;
                 appearance: none;
 
                 &::before {
@@ -383,6 +385,10 @@ html{
                     transition: all 0.15s ease;
                 }
 
+                &:focus {
+                    border-radius: 500px;
+                }
+
                 &:checked::before {
                     translate: calc(2.6rem - 1.5rem);
                 }
@@ -392,43 +398,26 @@ html{
                 }
             }
 
-            input:checked {
-                + .toggle {
-                    background-color: #3F97FF60;
+            input[type="color"] {
+                border: none;
+                cursor: pointer;
 
-                    &::after {
-                        translate: calc(2.6rem - 1.5rem);
-                    } 
+                &::after, &::before {
+                    display: none;
                 }
             }
 
-            .toggle {
-                position: relative;
-                width: 2.6rem;
-                height: 1.5rem;
-                background-color: #ffffff40;
-                border: 1px solid #ffffff10;
-                border-radius: 500rem;
-                box-sizing: content-box;
-                cursor: pointer;
-                transition: all 0.15s ease;
+            input[type="color"]::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
 
-                &::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 1.5rem;
-                    width: 1.5rem;
-                    border-radius: 5000px;
-                    background-color: #ffffff;
-                    transition: all 0.15s ease;
-                }
+            input[type="color"]::-webkit-color-swatch {
+                border: 2px solid #ffffff40;
             }
         }
 
         &.wallpaper {
-            p span {
+            label span {
                 display: block;
             }
         }

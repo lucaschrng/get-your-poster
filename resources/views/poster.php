@@ -69,38 +69,38 @@ function getNewToken()
                         <h2>Options</h2>
                     </div> -->
                     <div class="option">
-                        <p>Invert colors</p>
-                        <input type="checkbox" name="invert" id="invert" checked>
+                        <label for="invert">Invert colors</label>
+                        <input type="checkbox" name="invert" id="invert">
                     </div>
                     <div class="option">
-                        <p>Folded texture</p>
-                        <input type="checkbox" name="folded" id="folded" checked>
+                        <label for="folded">No texture</label for="">
+                        <input type="checkbox" name="folded" id="folded">
                     </div>
                     <div class="option">
-                        <p>Wallpaper size</p>
+                        <label for="wallpaper">Wallpaper size</label for="">
                         <input type="checkbox" name="wallpaper" id="wallpaper">
                     </div>
                     <div class="option">
-                        <p>Justify title</p>
+                        <label for="justify">Justify title</label for="">
                         <input type="checkbox" name="justify" id="justify">
                     </div>
                     <div class="option">
-                        <p>Hide artist<span>Recommended on with wallpaper size</span></p>
+                        <label for="hidden-artist">Hide artist<span>Recommended on with wallpaper size</span></label for="">
                         <input type="checkbox" name="hidden-artist" id="hidden-artist">
                     </div>
                     <div class="option">
-                        <p>Hide title<span>Recommended on with wallpaper size</span></p>
+                        <label for="hidden-title">Hide title<span>Recommended on with wallpaper size</span></label for="">
                         <input type="checkbox" name="hidden-title" id="hidden-title">
                     </div>
                     <div class="option">
-                        <p>Hide tracks</p>
+                        <label for="hidden-tracks">Hide tracks</label for="">
                         <input type="checkbox" name="hidden-tracks" id="hidden-tracks">
                     </div>
-                    <!-- <div class="option">
-                        <p>Custom accent color</p>
-                        <div class="toggle"><input type="color" name="accent-color"></div>
+                    <div class="option">
+                        <label for="custom-color">Choose color</label for="">
+                        <input type="color" name="custom-color" id="custom-color" value="">
                     </div>
-                    <div class="custom-image-option">
+                    <!-- <div class="custom-image-option">
                         <p>Drag and drop,<br>or <span class="file-select">select file</span></p>
                     </div> -->
                 </div>

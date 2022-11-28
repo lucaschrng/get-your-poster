@@ -25,6 +25,7 @@ let isHiddenTracks = false;
 let wallpaperToggle = document.querySelector('#wallpaper');
 let isWallpaper = false;
 let optionPanel = document.querySelector('.options');
+let colorPicker = document.querySelector('#custom-color');
 let fz = '27px';
 let posterArr;
 let textureArr;
@@ -98,6 +99,11 @@ wallpaperToggle.addEventListener('change', () => {
 
 preview.addEventListener('load', () => {
     preview.style.height = 'auto';
+})
+
+colorPicker.addEventListener('change', () => {
+    updateColor(colorPicker.value);
+    fastRender();
 })
 
 getAndBuild();
@@ -354,6 +360,7 @@ function setAccentColor(imgNode) {
     imgNode.setAttribute('crossOrigin', '');
     Vibrant.from(imgNode).getPalette().then(function(palette) {
         let vibrantColor = palette.Vibrant._rgb;
+        colorPicker.value = palette.Vibrant.hex;
         document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
     });
 }
@@ -415,4 +422,8 @@ function applyBlend(arr1, arr2) {
         resultArr.push(arr1[i+3]);
     }
     return getDataUrlFromArr(resultArr, getWidth(poster)*Math.min(window.devicePixelRatio, 2), -getHeight(poster)*Math.min(window.devicePixelRatio, 2));
+}
+
+function updateColor(hex) {
+    document.documentElement.style.setProperty('--accent-color', hex);
 }

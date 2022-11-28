@@ -300,11 +300,13 @@ html {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.062745098);
 }
-.poster-generate .options .option p {
+.poster-generate .options .option label {
   font-weight: 400;
   font-size: 1.2rem;
+  width: 100%;
+  cursor: pointer;
 }
-.poster-generate .options .option p span {
+.poster-generate .options .option label span {
   font-size: 0.8rem;
   line-height: 0.8rem;
   opacity: 0.7;
@@ -313,7 +315,7 @@ html {
 .poster-generate .options .option input {
   position: relative;
   height: 1.5rem;
-  width: 2.6rem;
+  min-width: 2.6rem;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -344,41 +346,29 @@ html {
   cursor: pointer;
   transition: all 0.15s ease;
 }
+.poster-generate .options .option input:focus {
+  border-radius: 500px;
+}
 .poster-generate .options .option input:checked::before {
   translate: 1.1rem;
 }
 .poster-generate .options .option input:checked::after {
   background-color: rgba(63, 151, 255, 0.3764705882);
 }
-.poster-generate .options .option input:checked + .toggle {
-  background-color: rgba(63, 151, 255, 0.3764705882);
-}
-.poster-generate .options .option input:checked + .toggle::after {
-  translate: 1.1rem;
-}
-.poster-generate .options .option .toggle {
-  position: relative;
-  width: 2.6rem;
-  height: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.2509803922);
-  border: 1px solid rgba(255, 255, 255, 0.062745098);
-  border-radius: 500rem;
-  box-sizing: content-box;
+.poster-generate .options .option input[type=color] {
+  border: none;
   cursor: pointer;
-  transition: all 0.15s ease;
 }
-.poster-generate .options .option .toggle::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 1.5rem;
-  width: 1.5rem;
-  border-radius: 5000px;
-  background-color: #ffffff;
-  transition: all 0.15s ease;
+.poster-generate .options .option input[type=color]::after, .poster-generate .options .option input[type=color]::before {
+  display: none;
 }
-.poster-generate .options.wallpaper p span {
+.poster-generate .options .option input[type=color]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.poster-generate .options .option input[type=color]::-webkit-color-swatch {
+  border: 2px solid rgba(255, 255, 255, 0.2509803922);
+}
+.poster-generate .options.wallpaper label span {
   display: block;
 }
 .poster-generate .download {
