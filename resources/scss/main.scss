@@ -401,6 +401,8 @@ html{
             input[type="color"] {
                 border: none;
                 cursor: pointer;
+                border-radius: 3px;
+                overflow: hidden;
 
                 &::after, &::before {
                     display: none;
@@ -413,6 +415,7 @@ html{
 
             input[type="color"]::-webkit-color-swatch {
                 border: 2px solid #ffffff40;
+                border-radius: 3px;
             }
         }
 

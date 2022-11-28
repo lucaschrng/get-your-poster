@@ -358,6 +358,8 @@ html {
 .poster-generate .options .option input[type=color] {
   border: none;
   cursor: pointer;
+  border-radius: 3px;
+  overflow: hidden;
 }
 .poster-generate .options .option input[type=color]::after, .poster-generate .options .option input[type=color]::before {
   display: none;
@@ -367,6 +369,7 @@ html {
 }
 .poster-generate .options .option input[type=color]::-webkit-color-swatch {
   border: 2px solid rgba(255, 255, 255, 0.2509803922);
+  border-radius: 3px;
 }
 .poster-generate .options.wallpaper label span {
   display: block;
