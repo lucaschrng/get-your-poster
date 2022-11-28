@@ -26,6 +26,10 @@ let wallpaperToggle = document.querySelector('#wallpaper');
 let isWallpaper = false;
 let optionPanel = document.querySelector('.options');
 let colorPicker = document.querySelector('#custom-color');
+let customImageButton = document.querySelector('.custom-image p button');
+let customImageInput = document.querySelector('.custom-image p button input');
+let customImageDrop = document.querySelector('.option.custom-image');
+let isCustomImg = false;
 let fz = '27px';
 let posterArr;
 let textureArr;
@@ -97,6 +101,67 @@ wallpaperToggle.addEventListener('change', () => {
     fastRender();
 })
 
+customImageButton.addEventListener('click', () => {
+    customImageInput.click();
+})
+
+customImageInput.addEventListener('change', (event) => {
+    let file = customImageInput.files[0];
+    let reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        document.querySelector('.cover').src = reader.result;
+        document.querySelector('.cover').addEventListener('load', () => {
+            setAccentColor(document.querySelector('.cover'));
+            setTimeout(() => {
+                fastRender();
+            }, 100);
+        })
+    })
+
+    reader.readAsDataURL(file);
+})
+
+customImageDrop.addEventListener('dragenter', preventDefaults, false);
+customImageDrop.addEventListener('dragenter', highlight, false)
+customImageDrop.addEventListener('dragover', preventDefaults, false);
+customImageDrop.addEventListener('dragover', highlight, false)
+customImageDrop.addEventListener('dragleave', preventDefaults, false);
+customImageDrop.addEventListener('dragleave', unhighlight, false);
+customImageDrop.addEventListener('drop', preventDefaults, false);
+customImageDrop.addEventListener('drop', unhighlight, false);
+customImageDrop.addEventListener('drop', handleDrop, false);
+
+function preventDefaults(event) {
+    event.preventDefault()
+    event.stopPropagation()
+}
+
+function highlight() {
+    customImageDrop.classList.add('highlight');
+}
+
+function unhighlight() {
+    customImageDrop.classList.remove('highlight');
+}
+
+function handleDrop(event) {
+    let file = event.dataTransfer.files[0];
+    let reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        document.querySelector('.cover').src = reader.result;
+        document.querySelector('.cover').addEventListener('load', () => {
+            setAccentColor(document.querySelector('.cover'));
+            setTimeout(() => {
+                fastRender();
+            }, 100);
+        })
+    })
+
+    reader.readAsDataURL(file);
+}
+
 preview.addEventListener('load', () => {
     preview.style.height = 'auto';
 })
@@ -162,6 +227,7 @@ function buildPoster(album) {
 
     let cover = document.createElement('img');
     cover.src = albumCoverUrl;
+    cover.classList.add('cover');
 
     let songTitleMaxLength = 0;
 

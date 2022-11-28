@@ -260,7 +260,7 @@ html{
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 0.5rem;
     }
 
     .options {
@@ -416,6 +416,51 @@ html{
             input[type="color"]::-webkit-color-swatch {
                 border: 2px solid #ffffff40;
                 border-radius: 3px;
+            }
+
+            &.custom-image {
+                padding: 3rem;
+                margin: 1rem;
+                border: 1px dashed #ffffff50;
+                background-color: #d8d8d81e;
+                border-radius: 3px;
+
+                &.highlight {
+                    background-color: #d8d8d83e;
+                }
+
+                .select-button {
+                    width: min-content;
+                }
+
+                p {
+                    margin: 0 auto;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    text-align: center;
+                    opacity: 1;
+
+                    button {
+                        border: none;
+                        background-color: transparent;
+                        font-size: 1rem;
+                        color: #0D93F3;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+
+                    .file-select {
+                        display: none;
+    
+                        &::after, &::before {
+                            display: none;
+                        }
+                    }
+                }
+
+                &::after {
+                    top: -1rem;
+                }
             }
         }
 

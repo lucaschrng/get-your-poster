@@ -39148,6 +39148,10 @@ var wallpaperToggle = document.querySelector('#wallpaper');
 var isWallpaper = false;
 var optionPanel = document.querySelector('.options');
 var colorPicker = document.querySelector('#custom-color');
+var customImageButton = document.querySelector('.custom-image p button');
+var customImageInput = document.querySelector('.custom-image p button input');
+var customImageDrop = document.querySelector('.option.custom-image');
+var isCustomImg = false;
 var fz = '27px';
 var posterArr;
 var textureArr;
@@ -39211,6 +39215,56 @@ wallpaperToggle.addEventListener('change', function () {
   }
   fastRender();
 });
+customImageButton.addEventListener('click', function () {
+  customImageInput.click();
+});
+customImageInput.addEventListener('change', function (event) {
+  var file = customImageInput.files[0];
+  var reader = new FileReader();
+  reader.addEventListener('load', function () {
+    document.querySelector('.cover').src = reader.result;
+    document.querySelector('.cover').addEventListener('load', function () {
+      setAccentColor(document.querySelector('.cover'));
+      setTimeout(function () {
+        fastRender();
+      }, 100);
+    });
+  });
+  reader.readAsDataURL(file);
+});
+customImageDrop.addEventListener('dragenter', preventDefaults, false);
+customImageDrop.addEventListener('dragenter', highlight, false);
+customImageDrop.addEventListener('dragover', preventDefaults, false);
+customImageDrop.addEventListener('dragover', highlight, false);
+customImageDrop.addEventListener('dragleave', preventDefaults, false);
+customImageDrop.addEventListener('dragleave', unhighlight, false);
+customImageDrop.addEventListener('drop', preventDefaults, false);
+customImageDrop.addEventListener('drop', unhighlight, false);
+customImageDrop.addEventListener('drop', handleDrop, false);
+function preventDefaults(event) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+function highlight() {
+  customImageDrop.classList.add('highlight');
+}
+function unhighlight() {
+  customImageDrop.classList.remove('highlight');
+}
+function handleDrop(event) {
+  var file = event.dataTransfer.files[0];
+  var reader = new FileReader();
+  reader.addEventListener('load', function () {
+    document.querySelector('.cover').src = reader.result;
+    document.querySelector('.cover').addEventListener('load', function () {
+      setAccentColor(document.querySelector('.cover'));
+      setTimeout(function () {
+        fastRender();
+      }, 100);
+    });
+  });
+  reader.readAsDataURL(file);
+}
 preview.addEventListener('load', function () {
   preview.style.height = 'auto';
 });
@@ -39259,6 +39313,7 @@ function buildPoster(album) {
   infos.appendChild(title);
   var cover = document.createElement('img');
   cover.src = albumCoverUrl;
+  cover.classList.add('cover');
   var songTitleMaxLength = 0;
   albumTracks.forEach(function (track, index) {
     var trackTitle = track.name;

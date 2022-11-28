@@ -243,7 +243,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 0.5rem;
 }
 .poster-generate .options {
   width: 360px;
@@ -370,6 +370,44 @@ html {
 .poster-generate .options .option input[type=color]::-webkit-color-swatch {
   border: 2px solid rgba(255, 255, 255, 0.2509803922);
   border-radius: 3px;
+}
+.poster-generate .options .option.custom-image {
+  padding: 3rem;
+  margin: 1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.3137254902);
+  background-color: rgba(216, 216, 216, 0.1176470588);
+  border-radius: 3px;
+}
+.poster-generate .options .option.custom-image.highlight {
+  background-color: rgba(216, 216, 216, 0.2431372549);
+}
+.poster-generate .options .option.custom-image .select-button {
+  width: -moz-min-content;
+  width: min-content;
+}
+.poster-generate .options .option.custom-image p {
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  opacity: 1;
+}
+.poster-generate .options .option.custom-image p button {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  color: #0D93F3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.poster-generate .options .option.custom-image p .file-select {
+  display: none;
+}
+.poster-generate .options .option.custom-image p .file-select::after, .poster-generate .options .option.custom-image p .file-select::before {
+  display: none;
+}
+.poster-generate .options .option.custom-image::after {
+  top: -1rem;
 }
 .poster-generate .options.wallpaper label span {
   display: block;

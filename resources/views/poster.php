@@ -100,9 +100,11 @@ function getNewToken()
                         <label for="custom-color">Choose color</label for="">
                         <input type="color" name="custom-color" id="custom-color" value="">
                     </div>
-                    <!-- <div class="custom-image-option">
-                        <p>Drag and drop,<br>or <span class="file-select">select file</span></p>
-                    </div> -->
+                    <div class="option custom-image">
+                        <p>Drag and drop,<br>or
+                            <button>select file<input type="file" accept="image/png, image/jpg" class="file-select"></button>
+                        </p>
+                    </div>
                 </div>
                 <a class="download" href="">Download</a>
                 <a class="new-poster" href="/">Make another poster →</a>
