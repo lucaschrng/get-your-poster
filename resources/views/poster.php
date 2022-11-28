@@ -65,9 +65,6 @@ function getNewToken()
             </div>
             <div class="right-panel">
                 <div class="options">
-                    <!-- <div class="option-nav">
-                        <h2>Options</h2>
-                    </div> -->
                     <div class="option">
                         <label for="invert">Invert colors</label>
                         <input type="checkbox" name="invert" id="invert">
