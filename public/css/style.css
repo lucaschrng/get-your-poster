@@ -137,7 +137,7 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.062745098);
   transition: all 0.1s ease;
 }
-.home .results a * h2 {
+.home .results a h2 {
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -154,6 +154,8 @@ html {
 
 .poster-generate {
   background-color: #1E1E1E;
+  height: 100vh;
+  overflow-y: auto;
 }
 .poster-generate > span {
   position: absolute;
@@ -165,7 +167,7 @@ html {
   opacity: 0;
 }
 .poster-generate .poster-img-wrapper {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,8 +180,7 @@ html {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding: 6rem 0;
-  max-height: 100vh;
+  padding: 2rem 0;
 }
 .poster-generate .poster-img p {
   font-size: 1.5rem;
@@ -310,7 +311,44 @@ html {
   display: none;
 }
 .poster-generate .options .option input {
-  display: none;
+  position: relative;
+  height: 1.5rem;
+  width: 2.6rem;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.poster-generate .options .option input::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 5000px;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+  z-index: 1;
+  cursor: pointer;
+}
+.poster-generate .options .option input::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  background-color: rgba(255, 255, 255, 0.2509803922);
+  border-radius: 500rem;
+  box-sizing: content-box;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.poster-generate .options .option input:checked::before {
+  translate: 1.1rem;
+}
+.poster-generate .options .option input:checked::after {
+  background-color: rgba(63, 151, 255, 0.3764705882);
 }
 .poster-generate .options .option input:checked + .toggle {
   background-color: rgba(63, 151, 255, 0.3764705882);

@@ -10,26 +10,26 @@ let downloadBtn = document.querySelector('.poster-img a');
 let preview = document.querySelector('.preview');
 let loader = document.querySelector('.loader-wrapper');
 let span = document.querySelector('.poster-generate > span');
-let invertToggle = document.querySelector('.toggle.invert');
+let invertToggle = document.querySelector('#invert');
 let isInvert = true;
-let justifyToggle = document.querySelector('.toggle.justify');
+let justifyToggle = document.querySelector('#justify');
 let isJustify = false;
-let foldedToggle = document.querySelector('.toggle.folded');
+let foldedToggle = document.querySelector('#folded');
 let isFolded = true;
-let artistToggle = document.querySelector('.toggle.hidden-artist');
+let artistToggle = document.querySelector('#hidden-artist');
 let isHiddenArtist = false;
-let titleToggle = document.querySelector('.toggle.hidden-title');
+let titleToggle = document.querySelector('#hidden-title');
 let isHiddenTitle = false;
-let tracksToggle = document.querySelector('.toggle.hidden-tracks');
+let tracksToggle = document.querySelector('#hidden-tracks');
 let isHiddenTracks = false;
-let wallpaperToggle = document.querySelector('.toggle.wallpaper');
+let wallpaperToggle = document.querySelector('#wallpaper');
 let isWallpaper = false;
 let optionPanel = document.querySelector('.options');
 let fz = '27px';
 let posterArr;
 let textureArr;
 
-invertToggle.addEventListener('mousedown', () => {
+invertToggle.addEventListener('change', () => {
     isInvert = !isInvert;
     if (isInvert) {
         poster.classList.add('invert');
@@ -39,7 +39,7 @@ invertToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
-justifyToggle.addEventListener('mousedown', () => {
+justifyToggle.addEventListener('change', () => {
     isJustify = !isJustify;
     if (isJustify) {
         document.querySelector('.poster h1').style.justifyContent = 'space-between';
@@ -49,12 +49,12 @@ justifyToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
-foldedToggle.addEventListener('mousedown', () => {
+foldedToggle.addEventListener('change', () => {
     isFolded = !isFolded;
     fastRender();
 })
 
-artistToggle.addEventListener('mousedown', () => {
+artistToggle.addEventListener('change', () => {
     isHiddenArtist = !isHiddenArtist;
     if (isHiddenArtist) {
         poster.classList.add('hidden-artist');
@@ -64,7 +64,7 @@ artistToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
-titleToggle.addEventListener('mousedown', () => {
+titleToggle.addEventListener('change', () => {
     isHiddenTitle = !isHiddenTitle;
     if (isHiddenTitle) {
         poster.classList.add('hidden-title');
@@ -74,7 +74,7 @@ titleToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
-tracksToggle.addEventListener('mousedown', () => {
+tracksToggle.addEventListener('change', () => {
     isHiddenTracks = !isHiddenTracks;
     if (isHiddenTracks) {
         poster.classList.add('hidden-tracks');
@@ -84,7 +84,7 @@ tracksToggle.addEventListener('mousedown', () => {
     fastRender();
 })
 
-wallpaperToggle.addEventListener('mousedown', () => {
+wallpaperToggle.addEventListener('change', () => {
     isWallpaper = !isWallpaper;
     if (isWallpaper) {
         poster.classList.add('wallpaper');

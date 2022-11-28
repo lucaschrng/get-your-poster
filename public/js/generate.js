@@ -39132,25 +39132,25 @@ var downloadBtn = document.querySelector('.poster-img a');
 var preview = document.querySelector('.preview');
 var loader = document.querySelector('.loader-wrapper');
 var span = document.querySelector('.poster-generate > span');
-var invertToggle = document.querySelector('.toggle.invert');
+var invertToggle = document.querySelector('#invert');
 var isInvert = true;
-var justifyToggle = document.querySelector('.toggle.justify');
+var justifyToggle = document.querySelector('#justify');
 var isJustify = false;
-var foldedToggle = document.querySelector('.toggle.folded');
+var foldedToggle = document.querySelector('#folded');
 var isFolded = true;
-var artistToggle = document.querySelector('.toggle.hidden-artist');
+var artistToggle = document.querySelector('#hidden-artist');
 var isHiddenArtist = false;
-var titleToggle = document.querySelector('.toggle.hidden-title');
+var titleToggle = document.querySelector('#hidden-title');
 var isHiddenTitle = false;
-var tracksToggle = document.querySelector('.toggle.hidden-tracks');
+var tracksToggle = document.querySelector('#hidden-tracks');
 var isHiddenTracks = false;
-var wallpaperToggle = document.querySelector('.toggle.wallpaper');
+var wallpaperToggle = document.querySelector('#wallpaper');
 var isWallpaper = false;
 var optionPanel = document.querySelector('.options');
 var fz = '27px';
 var posterArr;
 var textureArr;
-invertToggle.addEventListener('mousedown', function () {
+invertToggle.addEventListener('change', function () {
   isInvert = !isInvert;
   if (isInvert) {
     poster.classList.add('invert');
@@ -39159,7 +39159,7 @@ invertToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
-justifyToggle.addEventListener('mousedown', function () {
+justifyToggle.addEventListener('change', function () {
   isJustify = !isJustify;
   if (isJustify) {
     document.querySelector('.poster h1').style.justifyContent = 'space-between';
@@ -39168,11 +39168,11 @@ justifyToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
-foldedToggle.addEventListener('mousedown', function () {
+foldedToggle.addEventListener('change', function () {
   isFolded = !isFolded;
   fastRender();
 });
-artistToggle.addEventListener('mousedown', function () {
+artistToggle.addEventListener('change', function () {
   isHiddenArtist = !isHiddenArtist;
   if (isHiddenArtist) {
     poster.classList.add('hidden-artist');
@@ -39181,7 +39181,7 @@ artistToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
-titleToggle.addEventListener('mousedown', function () {
+titleToggle.addEventListener('change', function () {
   isHiddenTitle = !isHiddenTitle;
   if (isHiddenTitle) {
     poster.classList.add('hidden-title');
@@ -39190,7 +39190,7 @@ titleToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
-tracksToggle.addEventListener('mousedown', function () {
+tracksToggle.addEventListener('change', function () {
   isHiddenTracks = !isHiddenTracks;
   if (isHiddenTracks) {
     poster.classList.add('hidden-tracks');
@@ -39199,7 +39199,7 @@ tracksToggle.addEventListener('mousedown', function () {
   }
   fastRender();
 });
-wallpaperToggle.addEventListener('mousedown', function () {
+wallpaperToggle.addEventListener('change', function () {
   isWallpaper = !isWallpaper;
   if (isWallpaper) {
     poster.classList.add('wallpaper');
