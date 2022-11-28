@@ -2,7 +2,7 @@
 
 session_start();
 
-if ($_SESSION || isset($_SESSION['genTime'])) {
+if (isset($_SESSION['genTime'])) {
   if (time() - $_SESSION['genTime'] >= 3600) {
     getNewToken();
   }
@@ -19,11 +19,12 @@ function getNewToken()
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_HEADER, [
     'Content-Type: application/x-www-form-urlencoded',
+    'Authorization: Bearer'
   ]);
   curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
     'grant_type' => 'client_credentials',
     'client_id' => $client_id,
-    'client_secret' => $client_secret
+    'client_secret' => $client_secret,
   ]));
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);

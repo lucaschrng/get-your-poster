@@ -39225,9 +39225,6 @@ customImageInput.addEventListener('change', function (event) {
     document.querySelector('.cover').src = reader.result;
     document.querySelector('.cover').addEventListener('load', function () {
       setAccentColor(document.querySelector('.cover'));
-      setTimeout(function () {
-        fastRender();
-      }, 100);
     });
   });
   reader.readAsDataURL(file);
@@ -39258,9 +39255,6 @@ function handleDrop(event) {
     document.querySelector('.cover').src = reader.result;
     document.querySelector('.cover').addEventListener('load', function () {
       setAccentColor(document.querySelector('.cover'));
-      setTimeout(function () {
-        fastRender();
-      }, 100);
     });
   });
   reader.readAsDataURL(file);
@@ -39346,7 +39340,6 @@ function buildPoster(album) {
   });
   poster.appendChild(infos);
   poster.appendChild(cover);
-  setAccentColor(cover);
   poster.appendChild(tracklist);
   var titleFz = 120;
   if (!checkWrap(title)) {
@@ -39389,10 +39382,7 @@ function buildPoster(album) {
       separator.innerHTML += '.';
     }
   });
-  setTimeout(function () {
-    window.scrollTo(0, 0);
-    fastRender();
-  }, 500);
+  setAccentColor(cover);
   downloadBtn.download = albumArtistTitle.replaceAll('.', '').replaceAll(',', '-').split(' ').join('') + "-" + albumTitle.split(' ').join('') + '_Poster';
 }
 function removeMention(string, mention) {
@@ -39480,6 +39470,7 @@ function setAccentColor(imgNode) {
     var vibrantColor = palette.Vibrant._rgb;
     colorPicker.value = palette.Vibrant.hex;
     document.documentElement.style.setProperty('--accent-color', 'rgb(' + vibrantColor[0] + ', ' + vibrantColor[1] + ', ' + vibrantColor[2] + ')');
+    fastRender();
   });
 }
 function fastRender() {
