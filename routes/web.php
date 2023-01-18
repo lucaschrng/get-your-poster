@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PosterController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TrendingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class, 'show']);
 
-Route::get('/poster/{album_id}', function ($album_id) {
-    $_GET['album_id'] = $album_id;
-    return view('poster');
+Route::middleware(['updateApiKey'])->group(function () {
+    Route::get('/trending', [TrendingController::class, 'get']);
+    Route::get('/search/{keywords}', [SearchController::class, 'get']);
+    Route::get('/poster/{album_id}', [PosterController::class, 'show']);
 });

@@ -1,131 +1,84 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/homepage.js":
-/*!**********************************!*\
-  !*** ./resources/js/homepage.js ***!
-  \**********************************/
+/***/ "./resources/js/home.js":
+/*!******************************!*\
+  !*** ./resources/js/home.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 var axios = (__webpack_require__(/*! axios */ "./node_modules/axios/dist/browser/axios.cjs")["default"]);
-var input = document.querySelector('.search-input');
-var keywords;
-var results = document.querySelector('.results');
-var cross = document.querySelector('.cross');
+var deleteButton = document.querySelector('.cross');
+var searchInput = document.querySelector('.search-input');
+var resultsDiv = document.querySelector('.results');
 var trendingTitle = document.querySelector('.trending-title');
-var lastClick = 0;
+var displayTimeout;
 
-// initialise page
-getTop50();
+// initialisation
 
-// add event listeners
+displayTop50();
 
-cross.addEventListener('click', function () {
-  input.value = "";
-  input.focus();
-  getTop50();
-});
-input.addEventListener('keyup', function () {
-  keywords = encodeURI(input.value);
-  lastClick = Date.now();
-  setTimeout(function () {
-    if (Date.now() - lastClick > 300) {
-      if (keywords === "") {
-        getTop50();
-      } else {
-        search(keywords);
-      }
+// set event listeners
+
+searchInput.addEventListener('keyup', function () {
+  var queryKeywords = encodeURI(searchInput.value);
+  clearTimeout(displayTimeout);
+  displayTimeout = setTimeout(function () {
+    document.body.scrollTop = 0;
+    if (queryKeywords === "") {
+      displayTop50();
+    } else {
+      displaySearchResults(queryKeywords);
     }
   }, 300);
+});
+deleteButton.addEventListener('click', function () {
+  searchInput.value = "";
+  searchInput.focus();
+  displayTop50();
 });
 
 // declare functions
 
-function getTop50() {
-  axios.get('api/top50').then(function (response) {
-    var albums = response.data.items;
-    var albumIndex = 0;
-    var offset = 0;
-    var displayedAlbums = [];
+function displayTop50() {
+  axios.get('/trending').then(function (response) {
+    resultsDiv.innerHTML = '';
+    var albums = response.data;
+    albums.forEach(function (album) {
+      displayResult(album);
+    });
     trendingTitle.style.opacity = 1;
-    removeResults();
-    while (albumIndex < 50) {
-      if (albumIndex + offset < albums.length) {
-        if (albums[albumIndex + offset].track.album.album_type === "album" && !displayedAlbums.includes(albums[albumIndex + offset].track.album.name)) {
-          var albumId = albums[albumIndex + offset].track.album.id;
-          var albumTitle = albums[albumIndex + offset].track.album.name;
-          var albumArtist = albums[albumIndex + offset].track.album.artists[0].name;
-          var albumCoverUrl = albums[albumIndex + offset].track.album.images[0].url;
-          displayedAlbums.push(albumTitle);
-          addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
-          albumIndex++;
-        } else {
-          if (albumIndex + offset < albums.length) {
-            offset++;
-          } else {
-            albumIndex = 50;
-          }
-        }
-      } else {
-        albumIndex = 50;
-      }
-    }
+  })["catch"](function (error) {
+    console.log(error);
   });
 }
-function search(keywords) {
-  axios.get('api/search/' + keywords).then(function (response) {
-    var albums = response.data.albums.items;
-    var albumIndex = 0;
-    var offset = 0;
+function displaySearchResults(queryKeywords) {
+  axios.get('/search/' + queryKeywords).then(function (response) {
     trendingTitle.style.opacity = null;
-    removeResults();
-    while (albumIndex < 50) {
-      if (albumIndex + offset < albums.length) {
-        if (albums[albumIndex + offset].album_type === "album") {
-          var albumId = albums[albumIndex + offset].id;
-          var albumTitle = albums[albumIndex + offset].name;
-          var albumArtist = albums[albumIndex + offset].artists[0].name;
-          var albumCoverUrl = albums[albumIndex + offset].images[0].url;
-          addResult(albumId, albumTitle, albumArtist, albumCoverUrl);
-          albumIndex++;
-        } else {
-          if (albumIndex + offset < albums.length) {
-            offset++;
-          } else {
-            albumIndex = 50;
-          }
-        }
-      } else {
-        albumIndex = 50;
-      }
-    }
+    resultsDiv.innerHTML = '';
+    var albums = response.data;
+    albums.forEach(function (album) {
+      displayResult(album);
+    });
+  })["catch"](function (error) {
+    console.log(error);
   });
 }
-function addResult(albumId, albumTitle, albumArtist, albumCoverUrl) {
-  // temporary patch
-  if (albumTitle === "<COPINGMECHANISM>") {
-    albumTitle = "&lt;COPINGMECHANISM&gt;";
-  }
+function displayResult(album) {
   var card = document.createElement('a');
-  card.href = '/poster/' + albumId;
+  card.href = '/poster/' + album.id;
+  resultsDiv.appendChild(card);
   var cover = document.createElement('img');
-  cover.src = albumCoverUrl;
+  cover.src = album.album_cover_url;
   card.appendChild(cover);
   var infos = document.createElement('div');
-  var title = document.createElement('h2');
-  title.innerHTML = albumTitle;
-  var artist = document.createElement('h3');
-  artist.innerHTML = albumArtist;
-  infos.appendChild(title);
-  infos.appendChild(artist);
   card.appendChild(infos);
-  results.appendChild(card);
-}
-function removeResults() {
-  document.body.scrollTop = 0;
-  while (results.childElementCount > 0) {
-    results.removeChild(results.childNodes[0]);
-  }
+  var title = document.createElement('h2');
+  title.textContent = album.name;
+  infos.appendChild(title);
+  var artists = document.createElement('h3');
+  artists.textContent = album.artists;
+  infos.appendChild(artists);
 }
 
 /***/ }),
@@ -5378,7 +5331,7 @@ module.exports = axios;
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/homepage": 0,
+/******/ 			"/js/home": 0,
 /******/ 			"css/style": 0
 /******/ 		};
 /******/ 		
@@ -5429,7 +5382,7 @@ module.exports = axios;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/style"], () => (__webpack_require__("./resources/js/homepage.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/style"], () => (__webpack_require__("./resources/js/home.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/style"], () => (__webpack_require__("./resources/scss/main.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	

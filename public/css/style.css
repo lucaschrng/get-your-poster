@@ -447,6 +447,9 @@ html {
   color: #ffffff;
   background-color: var(--accent-color);
 }
+.poster.justify-title h1 {
+  justify-content: space-between;
+}
 .poster.hidden-title h1 {
   display: none;
 }
@@ -492,6 +495,7 @@ html {
   grid-auto-flow: column;
   -moz-column-gap: 2rem;
        column-gap: 2rem;
+  font-size: 28px;
 }
 .poster ul li {
   font-weight: 600;

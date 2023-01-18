@@ -1,42 +1,3 @@
-<?php
-
-session_start();
-
-if ($_SESSION || isset($_SESSION['genTime'])) {
-    if (time() - $_SESSION['genTime'] >= 3600) {
-        getNewToken();
-    }
-} else {
-    getNewToken();
-};
-
-function getNewToken()
-{
-    $client_id = $_ENV['SPOTIFY_CLIENT_ID'];
-    $client_secret = $_ENV['SPOTIFY_CLIENT_SECRET'];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://accounts.spotify.com/api/token');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HEADER, [
-        'Content-Type: application/x-www-form-urlencoded',
-    ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-        'grant_type' => 'client_credentials',
-        'client_id' => $client_id,
-        'client_secret' => $client_secret
-    ]));
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    $output = json_decode(curl_exec($ch));
-    curl_close($ch);
-    $_SESSION['token'] = $output->access_token;
-    $_SESSION['genTime'] = time();
-};
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,14 +5,29 @@ function getNewToken()
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
     <title>Get Your Poster</title>
 </head>
 
-<body class="poster-generate hidden-title">
-    <input type="hidden" class="album_id" value="<?= $_GET['album_id'] ?>">
+<body class="poster-generate">
     <span>.</span>
-    <div class="poster invert"><img src="/img/folded_texture.jpg" class="overlay" alt=""></div>
+    <div class="poster invert">
+        <img src="{{ asset('/img/folded_texture.jpg') }}" class="overlay" alt="">
+        <div>
+            <h2>{{ $artists }}</h2>
+            <h1 class="album-title">
+                @foreach($name as $word)
+                    <span>{{ $word }}</span>
+                @endforeach
+            </h1>
+        </div>
+        <img src="{{ $albumCoverUrl }}" class="album-cover">
+        <ul style="grid-template-rows: repeat({{ ceil(count($tracks)/2) }}, 1fr);" class="tracklist">
+            @foreach($tracks as $track)
+                <li><span>{{ $loop->iteration }}</span><span class="separator"></span><span>{{ $track }}</span></li>
+            @endforeach
+        </ul>
+    </div>
 
     <div class="poster-img-wrapper">
         <div class="poster-img">
@@ -59,7 +35,7 @@ function getNewToken()
                 <div class="preview-wrapper">
                     <img class="preview" src="" alt="">
                     <div class="loader-wrapper">
-                        <img class="loader" src="/img/loading.gif" alt="">
+                        <img class="loader" src="{{ asset('/img/loading.gif') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -70,32 +46,32 @@ function getNewToken()
                         <input type="checkbox" name="invert" id="invert">
                     </div>
                     <div class="option">
-                        <label for="folded">No texture</label for="">
+                        <label for="folded">No texture</label>
                         <input type="checkbox" name="folded" id="folded">
                     </div>
                     <div class="option">
-                        <label for="wallpaper">Wallpaper size</label for="">
+                        <label for="wallpaper">Wallpaper size</label>
                         <input type="checkbox" name="wallpaper" id="wallpaper">
                     </div>
                     <div class="option">
-                        <label for="justify">Justify title</label for="">
+                        <label for="justify">Justify title</label>
                         <input type="checkbox" name="justify" id="justify">
                     </div>
                     <div class="option">
-                        <label for="hidden-artist">Hide artist<span>Recommended on with wallpaper size</span></label for="">
+                        <label for="hidden-artist">Hide artist<span>Recommended on with wallpaper size</span></label>
                         <input type="checkbox" name="hidden-artist" id="hidden-artist">
                     </div>
                     <div class="option">
-                        <label for="hidden-title">Hide title<span>Recommended on with wallpaper size</span></label for="">
+                        <label for="hidden-title">Hide title<span>Recommended on with wallpaper size</span></label>
                         <input type="checkbox" name="hidden-title" id="hidden-title">
                     </div>
                     <div class="option">
-                        <label for="hidden-tracks">Hide tracks</label for="">
+                        <label for="hidden-tracks">Hide tracks</label>
                         <input type="checkbox" name="hidden-tracks" id="hidden-tracks">
                     </div>
                     <div class="option">
-                        <label for="custom-color">Choose color</label for="">
-                        <input type="color" name="custom-color" id="custom-color" value="">
+                        <label for="custom-color">Choose color</label>
+                        <input type="color" name="custom-color" id="custom-color">
                     </div>
                     <div class="option custom-image">
                         <p>Drag and drop,<br>or
@@ -103,12 +79,12 @@ function getNewToken()
                         </p>
                     </div>
                 </div>
-                <a class="download" href="">Download</a>
+                <a class="download" href="" download="{{ $fileName }}">Download</a>
                 <a class="new-poster" href="/">Make another poster →</a>
             </div>
         </div>
     </div>
-    <script src="/js/generate.js" defer></script>
+    <script src="{{ asset('/js/poster.js') }}" defer></script>
 </body>
 
 </html>
