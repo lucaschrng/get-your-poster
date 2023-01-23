@@ -12,7 +12,7 @@
 <body class="poster-generate">
     <span>.</span>
     <div class="poster invert">
-        <img src="{{ asset('/img/folded_texture.jpg') }}" class="overlay" alt="">
+        <img src="{{ asset('/img/folded_texture.jpg') }}" class="overlay" alt="album cover">
         <div>
             <h2>{{ $artists }}</h2>
             <h1 class="album-title">
@@ -33,9 +33,9 @@
         <div class="poster-img">
             <div class="poster-preview-wrapper">
                 <div class="preview-wrapper">
-                    <img class="preview" src="" alt="">
+                    <img class="preview" src="" alt="poster preview">
                     <div class="loader-wrapper">
-                        <img class="loader" src="{{ asset('/img/loading.gif') }}" alt="">
+                        <img class="loader" src="{{ asset('/img/loading.gif') }}" alt="loader indicator">
                     </div>
                 </div>
             </div>
