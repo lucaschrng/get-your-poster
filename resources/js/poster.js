@@ -120,7 +120,7 @@ function handleDrop(event) {
     reader.addEventListener('load', () => {
         albumCover.src = reader.result;
         albumCover.addEventListener('load', () => {
-            initialisePage(albumCover);
+            initialisePage();
         })
     })
     reader.readAsDataURL(file);
