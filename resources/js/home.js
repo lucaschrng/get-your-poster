@@ -52,7 +52,7 @@ function displayTop50() {
 }
 
 function displaySearchResults(queryKeywords) {
-    axios.get('/search/' + queryKeywords)
+    axios.get(`/search/${queryKeywords}`)
         .then(response => {
             trendingTitle.style.opacity = null;
             resultsDiv.innerHTML = '';
@@ -67,23 +67,23 @@ function displaySearchResults(queryKeywords) {
         })
 }
 
-function displayResult(album) {
+function displayResult({id, album_cover_url, name, artists}) {
     let card = document.createElement('a');
-    card.href = '/poster/' + album.id;
+    card.href = `/poster/${id}`;
     resultsDiv.appendChild(card);
 
     let cover = document.createElement('img');
-    cover.src = album.album_cover_url;
+    cover.src = album_cover_url;
     card.appendChild(cover);
 
     let infos = document.createElement('div');
     card.appendChild(infos);
 
     let title = document.createElement('h2');
-    title.textContent = album.name;
+    title.textContent = name;
     infos.appendChild(title);
 
-    let artists = document.createElement('h3');
-    artists.textContent = album.artists;
-    infos.appendChild(artists);
+    let artistsNames = document.createElement('h3');
+    artistsNames.textContent = artists;
+    infos.appendChild(artistsNames);
 }

@@ -22,7 +22,7 @@
             </h1>
         </div>
         <img src="{{ $albumCoverUrl }}" class="album-cover">
-        <ul style="grid-template-rows: repeat({{ ceil(count($tracks)/2) }}, 1fr);" class="tracklist">
+        <ul style="grid-template-rows: repeat({{ ceil(count($tracks)/2) }}, 1fr);" class="track-list">
             @foreach($tracks as $track)
                 <li><span>{{ $loop->iteration }}</span><span class="separator"></span><span>{{ $track }}</span></li>
             @endforeach
