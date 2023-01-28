@@ -1,5 +1,5 @@
-const html2canvas = require('html2canvas');
-const Vibrant = require('node-vibrant');
+import html2canvas from 'html2canvas';
+import * as Vibrant from 'node-vibrant';
 
 let poster = document.querySelector('.poster');
 let title = document.querySelector('.album-title');

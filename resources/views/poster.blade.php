@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta">
-    <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+    @vite(['resources/scss/main.scss', 'resources/js/poster.js'])
     <title>Get Your Poster</title>
 </head>
 
@@ -84,7 +84,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('/js/poster.js') }}" defer></script>
 </body>
 
 </html>

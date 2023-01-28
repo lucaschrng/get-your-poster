@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+{{--  <link rel="stylesheet" href="{{ asset('/css/style.css') }}">--}}
+    @vite(['resources/scss/main.scss', 'resources/js/home.js'])
   <title>Get Your Poster</title>
 </head>
 
@@ -20,7 +21,7 @@
     <div class="results"></div>
   </div>
 
-  <script src="{{ asset('/js/home.js') }}"></script>
+{{--  <script src="{{ asset('/js/home.js') }}"></script>--}}
 </body>
 
 </html>

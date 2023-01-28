@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+import axios from 'axios';
 
 let deleteButton = document.querySelector('.cross');
 let searchInput = document.querySelector('.search-input');
